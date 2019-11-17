@@ -4,7 +4,7 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Upgrade ZCycler Plugin",
+            "label": "Upgrade PLUGINS MANAGER",
             "type": "shell",
             "command": ".\\batch\\upgrade-plugins-manager.bat"
             
