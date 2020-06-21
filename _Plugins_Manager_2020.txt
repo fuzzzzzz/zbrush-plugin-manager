@@ -2,8 +2,12 @@
 //The ZFileUtils.DLL, ZFileUtils64.DLL, ZFileUtils.lib and ZFileUtils64.lib 
 //are provided 'as is' with no warranty of any kind - use at your own risk!
 
-//load this file through the ZScript:Load button
-//then press 'H' so that the buttons are visible at the bottom of the ZBrush interface
+
+
+// Generate a list of installed plugins from a batch(win32) or bash(osx) command
+// win32 cmd: DIR /L *.zsc >> plugin_list.txt
+// OSX cmd : ls *.zsc >> plugin_list.txt
+
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -81,7 +85,7 @@
         [MemCreateFromFile,nk_mpm_uiSwitchesState, filename,]
 		//[Note, "uistate exists!",,1]
 		,//else
-        [MVarDef,nk_mpm_uiSwitchesState,70,0]
+        [MVarDef,nk_mpm_uiSwitchesState,75,0]
        
         [MVarSet,nk_mpm_uiSwitchesState,0,1] // quicksketch
 		[MVarSet,nk_mpm_uiSwitchesState,1,1] // projection master
@@ -136,7 +140,7 @@
 		[MVarSet,nk_mpm_uiSwitchesState,43,1] // ring master
 		[MVarSet,nk_mpm_uiSwitchesState,44,1] // turntabler
 		[MVarSet,nk_mpm_uiSwitchesState,45,1] // zcnc
-		//[MVarSet,nk_mpm_uiSwitchesState,46,1] // gizmoswaper
+		[MVarSet,nk_mpm_uiSwitchesState,46,1] // zcolor
 		
 		[MVarSet,nk_mpm_uiSwitchesState,47,1] // zscene manager
 		[MVarSet,nk_mpm_uiSwitchesState,48,1] // XMD
@@ -161,13 +165,16 @@
 		[MVarSet,nk_mpm_uiSwitchesState,64,1] // Calipers Master
 
 		[MVarSet,nk_mpm_uiSwitchesState,65,1] // Camera Bag
-		[MVarSet,nk_mpm_uiSwitchesState,66,1] // ZColor (pixologic)
+		// [MVarSet,nk_mpm_uiSwitchesState,66,1] // ZColor (pixologic)
 
 		[MVarSet,nk_mpm_uiSwitchesState,67,1] // Intersection Masker
 		[MVarSet,nk_mpm_uiSwitchesState,68,1] // Kitco Metal Quotes
 		[MVarSet,nk_mpm_uiSwitchesState,69,1] // ZColor (not from pixologic)
 
-
+		[MVarSet,nk_mpm_uiSwitchesState,70,1] // Layer Brush Depth
+		[MVarSet,nk_mpm_uiSwitchesState,71,1] // Quick Scaler
+		[MVarSet,nk_mpm_uiSwitchesState,72,1] // ZBrush Compositor
+		
 	]
 
 ]
@@ -237,6 +244,7 @@
 				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.Ring Master"],[VarSet,idx,43][LoopExit]]
 				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.Turntabler"],[VarSet,idx,44][LoopExit]]
 				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.Z Cnc"],[VarSet,idx,45][LoopExit]]
+				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.ZColor"],[VarSet,idx,46][LoopExit]]
 				//gismoswapper ?
 				//[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.ZScene Manager"],[VarSet,idx,46][LoopExit]]
 				
@@ -262,13 +270,14 @@
 				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.Calipers Master"],[VarSet,idx,64][LoopExit]]
 
 				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.Camera Bag"],[VarSet,idx,65][LoopExit]]
-				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.ZColor"],[VarSet,idx,66][LoopExit]]
 
 				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.Intersection Masker"],[VarSet,idx,67][LoopExit]]
 				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.Kitco Metal Quotes"],[VarSet,idx,68][LoopExit]]
-//				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.ZColor by Pixologic"],[VarSet,idx,69][LoopExit]]
 
 
+				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.Layer Brush Depth"],[VarSet,idx,69][LoopExit]]
+				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.Quick Scaler"],[VarSet,idx,70][LoopExit]]
+				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.ZBrush Compositor"],[VarSet,idx,71][LoopExit]]
 
 
 			]//end loop
@@ -318,6 +327,11 @@
 	[IEnable, "Zplugin:Plugins Manager:a.Text 3d & Vector Shapes"]
 	[IEnable, "Zplugin:Plugins Manager:a.Decimation Master"]
 	[IEnable, "Zplugin:Plugins Manager:a.PolygroupIt"]
+	[IEnable, "Zplugin:Plugins Manager:a.ZColor"]
+
+	[IEnable, "Zplugin:Plugins Manager:a.Layer Brush Depth"]
+	[IEnable, "Zplugin:Plugins Manager:a.Quick Scaler"]
+	[IEnable, "Zplugin:Plugins Manager:a.ZBrush Compositor"]
 
 	[IEnable, "Zplugin:Plugins Manager:a.Lumiere"]
 	[IEnable, "Zplugin:Plugins Manager:a.Matiere"]
@@ -370,13 +384,10 @@
 	[IEnable, "Zplugin:Plugins Manager:a.Brads 3D Texture Tools"]
 	[IEnable, "Zplugin:Plugins Manager:a.Calipers Master"]
 	[IEnable, "Zplugin:Plugins Manager:a.Camera Bag"]
-	[IEnable, "Zplugin:Plugins Manager:a.ZColor"]
 
 
 	[IEnable, "Zplugin:Plugins Manager:a.Intersection Masker"]
 	[IEnable, "Zplugin:Plugins Manager:a.Kitco Metal Quotes"]
-//	[IEnable, "Zplugin:Plugins Manager:a.ZColor"]
-
 
 
 ]
@@ -386,42 +397,42 @@
 // global Variables :
 [Varset, pluginId,0]
 
-[Varset, temp00,0]
-[Varset, temp01,0]
-[Varset, temp02,0]
-[Varset, temp03,0]
-[Varset, temp04,0]
-[Varset, temp05,0]
-[Varset, temp06,0]
-[Varset, temp07,0]
-[Varset, temp08,0]
-[Varset, temp09,0]
-[Varset, temp10,0]
-[Varset, temp11,0]
-[Varset, temp12,0]
-[Varset, temp13,0] 
-[Varset, temp14,0]
-[Varset, temp15,0]
-[Varset, temp16,0]
-[Varset, temp17,0]
-[Varset, temp18,0]
-[Varset, temp19,0]
-[Varset, temp20,0]
-[Varset, temp21,0]
-[Varset, temp22,0]
-[Varset, temp23,0] 
-[Varset, temp24,0]
-[Varset, temp25,0]
-[Varset, temp26,0]
-[Varset, temp27,0]
-[Varset, temp28,0]
-[Varset, temp29,0]
-[Varset, temp30,0]
-[Varset, temp31,0]
-[Varset, temp32,0]
-[Varset, temp33,0] 
-[Varset, temp34,0]
-[Varset, temp35,0]
+// [Varset, temp00,0]
+// [Varset, temp01,0]
+// [Varset, temp02,0]
+// [Varset, temp03,0]
+// [Varset, temp04,0]
+// [Varset, temp05,0]
+// [Varset, temp06,0]
+// [Varset, temp07,0]
+// [Varset, temp08,0]
+// [Varset, temp09,0]
+// [Varset, temp10,0]
+// [Varset, temp11,0]
+// [Varset, temp12,0]
+// [Varset, temp13,0] 
+// [Varset, temp14,0]
+// [Varset, temp15,0]
+// [Varset, temp16,0]
+// [Varset, temp17,0]
+// [Varset, temp18,0]
+// [Varset, temp19,0]
+// [Varset, temp20,0]
+// [Varset, temp21,0]
+// [Varset, temp22,0]
+// [Varset, temp23,0] 
+// [Varset, temp24,0]
+// [Varset, temp25,0]
+// [Varset, temp26,0]
+// [Varset, temp27,0]
+// [Varset, temp28,0]
+// [Varset, temp29,0]
+// [Varset, temp30,0]
+// [Varset, temp31,0]
+// [Varset, temp32,0]
+// [Varset, temp33,0] 
+// [Varset, temp34,0]
+// [Varset, temp35,0]
 
 //----------------------->
 // plugin Routines starts here :
@@ -1323,6 +1334,27 @@
 	]
 ]
 
+[RoutineDef, ShowZColor,
+	[If, [IExists, "Zplugin:ZColor"]
+        ,//cmds
+        //do nothing
+		[IShow, "zplugin:ZColor"]
+		[If,[IGet, "Zplugin:Plugins Manager:a.Maximize Plugins"]
+			,//cmds
+			[IKeypress, SHIFT,[IClick, "zplugin:ZColor"]]
+		]
+		,//else
+		//is unloaded ?
+
+	]
+]
+[RoutineDef, HideZColor,
+	[If, [IExists, "Zplugin:ZColor"]
+        ,//cmds
+        //do nothing
+		[IHide, "zplugin:ZColor"]
+	]
+]
 
 [RoutineDef, ShowIntersectionMasker,
 	[If, [IExists, "Zplugin:Intersection Masker"]
@@ -1366,6 +1398,70 @@
 		[IHide, "zplugin:Kitco Metal Quotes"]
 	]
 ]
+
+[RoutineDef, ShowLayerBrushDepth,
+	[If, [IExists, "Zplugin:Layer Brush Depth"]
+        ,//cmds
+        //do nothing
+		[IShow, "zplugin:Layer Brush Depth"]
+		[If,[IGet, "Zplugin:Plugins Manager:a.Maximize Plugins"]
+			,//cmds
+			[IKeypress, SHIFT,[IClick, "zplugin:Layer Brush Depth"]]
+		]
+		,//else
+		//is unloaded ?
+	]
+]
+[RoutineDef, HideLayerBrushDepth,
+	[If, [IExists, "Zplugin:Layer Brush Depth"]
+        ,//cmds
+        //do nothing
+		[IHide, "zplugin:Layer Brush Depth"]
+	]
+]
+
+[RoutineDef, ShowQuickScaler,
+	[If, [IExists, "Zplugin:Quick Scaler"]
+        ,//cmds
+        //do nothing
+		[IShow, "zplugin:Quick Scaler"]
+		[If,[IGet, "Zplugin:Plugins Manager:a.Maximize Plugins"]
+			,//cmds
+			[IKeypress, SHIFT,[IClick, "zplugin:Quick Scaler"]]
+		]
+		,//else
+		//is unloaded ?
+	]
+]
+[RoutineDef, HideQuickScaler,
+	[If, [IExists, "Zplugin:Quick Scaler"]
+        ,//cmds
+        //do nothing
+		[IHide, "zplugin:Quick Scaler"]
+	]
+]
+
+[RoutineDef, ShowZBrushCompositor,
+	[If, [IExists, "Zplugin:ZBrush Compositor"]
+        ,//cmds
+        //do nothing
+		[IShow, "zplugin:ZBrush Compositor"]
+		[If,[IGet, "Zplugin:Plugins Manager:a.Maximize Plugins"]
+			,//cmds
+			[IKeypress, SHIFT,[IClick, "zplugin:ZBrush Compositor"]]
+		]
+		,//else
+		//is unloaded ?
+	]
+]
+[RoutineDef, HideZBrushCompositor,
+	[If, [IExists, "Zplugin:ZBrush Compositor"]
+        ,//cmds
+        //do nothing
+		[IHide, "zplugin:ZBrush Compositor"]
+	]
+]
+
 /*
 [RoutineDef, ShowZColor2,
 	[If, [IExists, "Zplugin:ZColor"]
@@ -1908,29 +2004,6 @@
 	]
 ]
 
-[RoutineDef, ShowZColor,
-	[If, [IExists, "Zplugin:ZColor"]
-        ,//cmds
-        //do nothing
-		[IShow, "zplugin:ZColor"]
-		[If,[IGet, "Zplugin:Plugins Manager:a.Maximize Plugins"]
-			,//cmds
-			[IKeypress, SHIFT,[IClick, "zplugin:ZColor"]]
-		]
-		,//else
-		//is unloaded ?
-
-	]
-]
-[RoutineDef, HideZColor,
-	[If, [IExists, "Zplugin:ZColor"]
-        ,//cmds
-        //do nothing
-		[IHide, "zplugin:ZColor"]
-	]
-]
-
-
 
 
 [RoutineDef, HideAll,
@@ -1953,6 +2026,7 @@
 	[IUnPress, "Zplugin:Plugins Manager:a.Text 3d & Vector Shapes"]
 	[IUnPress, "Zplugin:Plugins Manager:a.Decimation Master"]
 	[IUnPress, "Zplugin:Plugins Manager:a.PolygroupIt"]
+	[IUnPress, "Zplugin:Plugins Manager:a.ZColor"]
 
 	[IUnPress, "Zplugin:Plugins Manager:a.Lumiere"]
 	[IUnPress, "Zplugin:Plugins Manager:a.Matiere"]
@@ -2006,11 +2080,13 @@
 	[IUnPress, "Zplugin:Plugins Manager:a.Brads 3D Texture Tools"]
 	[IUnPress, "Zplugin:Plugins Manager:a.Calipers Master"]
 	[IUnPress, "Zplugin:Plugins Manager:a.Camera Bag"]
-	[IUnPress, "Zplugin:Plugins Manager:a.ZColor"]
 
 	[IUnPress, "Zplugin:Plugins Manager:a.Intersection Masker"]
 	[IUnPress, "Zplugin:Plugins Manager:a.Kitco Metal Quotes"]
 //	[IUnPress, "Zplugin:Plugins Manager:a.ZColor"]
+	[IUnPress, "Zplugin:Plugins Manager:a.Layer Brush Depth"]
+	[IUnPress, "Zplugin:Plugins Manager:a.Quick Scaler"]
+	[IUnPress, "Zplugin:Plugins Manager:a.ZBrush Compositor"]
 ]
 
 [RoutineDef, ShowAll,
@@ -2032,6 +2108,8 @@
 	[IPress, "Zplugin:Plugins Manager:a.Text 3d & Vector Shapes"]
 	[IPress, "Zplugin:Plugins Manager:a.Decimation Master"]
 	[IPress, "Zplugin:Plugins Manager:a.PolygroupIt"]
+	[IPress, "Zplugin:Plugins Manager:a.ZColor"]
+
 
 	[IPress, "Zplugin:Plugins Manager:a.Lumiere"]
 	[IPress, "Zplugin:Plugins Manager:a.Matiere"]
@@ -2086,12 +2164,13 @@
 	[IPress, "Zplugin:Plugins Manager:a.Brads 3D Texture Tools"]
 	[IPress, "Zplugin:Plugins Manager:a.Calipers Master"]
 	[IPress, "Zplugin:Plugins Manager:a.Camera Bag"]
-	[IPress, "Zplugin:Plugins Manager:a.ZColor"]
 
 	[IPress, "Zplugin:Plugins Manager:a.Intersection Masker"]
 	[IPress, "Zplugin:Plugins Manager:a.Kitco Metal Quotes"]
-//	[IPress, "Zplugin:Plugins Manager:a.ZColor"]
 
+	[IPress, "Zplugin:Plugins Manager:a.Layer Brush Depth"]
+	[IPress, "Zplugin:Plugins Manager:a.Quick Scaler"]
+	[IPress, "Zplugin:Plugins Manager:a.ZBrush Compositor"]
 
 ]
 
@@ -2101,14 +2180,15 @@
 [RoutineDef, CheckInstalledPlugins,
 	
 	//PM plugins
-	[If, [FileExists, "lumiere_2019.zsc"]
+	[If, [FileExists, "lumiere_2020.zsc"]
 		,//
 		//do nothing
 		,//else
 		[IHide, "zplugin:plugins manager:a.lumiere"]
 		[IHide, "zplugin:plugins manager:Reload lumiere"]
 	]
-	[If, [FileExists, "matiere3d_2019.zsc"]
+
+	[If, [FileExists, "matiere3d_2020.zsc"]
 		,//
 		//do nothing
 		,//else
@@ -2122,35 +2202,35 @@
 		[IHide, "zplugin:plugins manager:a.ZCycler Pro"]
 		[IHide, "zplugin:plugins manager:Reload ZCyclerPro"]
 	]
-	[If, [FileExists, "ZSketcher_2019.zsc"]
+	[If, [FileExists, "ZSketcher_2020.zsc"]
 		,//
 		//do nothing
 		,//else
 		[IHide, "zplugin:plugins manager:a.ZSketcher"]
 		[IHide, "zplugin:plugins manager:Reload ZSketcher"]
 	]
-	[If, [FileExists, "Zbaker_2019.zsc"]
+	[If, [FileExists, "Zbaker_2020.zsc"]
 		,//
 		//do nothing
 		,//else
 		[IHide, "zplugin:plugins manager:a.Zbaker"]
 		[IHide, "zplugin:plugins manager:Reload Zbaker"]
 	]
-	[If, [FileExists, "ZIllustrator_2019.zsc"]
+	[If, [FileExists, "ZIllustrator_2020.zsc"]
 		,//
 		//do nothing
 		,//else
 		[IHide, "zplugin:plugins manager:a.ZIllustrator"]
 		[IHide, "zplugin:plugins manager:Reload ZIllustrator"]
 	]
-	[If, [FileExists, "Minimal_UI_2018.zsc"]
+	[If, [FileExists, "Minimal_UI_2020.zsc"]
 		,//
 		//do nothing
 		,//else
 		[IHide, "zplugin:plugins manager:a.Minimal UI"]
 		[IHide, "zplugin:plugins manager:Reload Minimal UI"]
 	]
-	[If, [FileExists, "PyZbrush_2019.zsc"]
+	[If, [FileExists, "PyZbrush_2020.zsc"]
 		,//
 		//do nothing
 		,//else
@@ -2172,125 +2252,127 @@
 		[IHide, "zplugin:plugins manager:Reload Plugin template"]
 	]
 //other pixologic plugins	
-	[If, [FileExists, "ZRepeatIt_2018.zsc"]
+	[If, [FileExists, "ZRepeatIt_2020.zsc"]
 		,//
 		//do nothing
 		,//else
 		[IHide, "zplugin:plugins manager:a.zRepeatIt"]
 		[IHide, "zplugin:plugins manager:Reload zRepeatIt"]
 	]
-	[If, [FileExists, "NanoTileTextures_2018.zsc"]
+	[If, [FileExists, "NanoTileTextures_2020.zsc"]
 		,//
 		//do nothing
 		,//else
 		[IHide, "zplugin:plugins manager:a.NanoTile Texture"]
 		[IHide, "zplugin:plugins manager:Reload NanoTile Texture"]
 	]
-	[If, [FileExists, "ZStartupMaster_2018.zsc"]
+	[If, [FileExists, "ZStartupMaster_2020.zsc"]
 		,//
 		//do nothing
 		,//else
 		[IHide, "zplugin:plugins manager:a.zStartup Master"]
 		[IHide, "zplugin:plugins manager:Reload zStartup Master"]
 	]
-	[If, [FileExists, "CleanToolMaster_2018.zsc"]
+	[If, [FileExists, "CleanToolMaster_2020.zsc"]
 		,//
 		//do nothing
 		,//else
 		[IHide, "zplugin:plugins manager:a.Clean Tool Master"]
 		[IHide, "zplugin:plugins manager:Reload Clean Tool Master"]
 	]
-	[If, [FileExists, "LiveBooleanMaster_2018.zsc"]
+	[If, [FileExists, "LiveBooleanMaster_2020.zsc"]
 		,//
 		//do nothing
 		,//else
 		[IHide, "zplugin:plugins manager:a.Live Boolean Master"]
 		[IHide, "zplugin:plugins manager:Reload Live Boolean Master"]
 	]
-	[If, [FileExists, "DynaMeshMaster_2018.zsc"]
+	[If, [FileExists, "DynaMeshMaster_2020.zsc"]
 		,//
 		//do nothing
 		,//else
 		[IHide, "zplugin:plugins manager:a.DynaMesh Master"]
 		[IHide, "zplugin:plugins manager:Reload DynaMesh Master"]
 	]
-	[If, [FileExists, "IMMDrawSize_2018.zsc"]
+	[If, [FileExists, "IMMDrawSize_2020.zsc"]
 		,//
 		//do nothing
 		,//else
 		[IHide, "zplugin:plugins manager:a.IMM Draw Size"]
 		[IHide, "zplugin:plugins manager:Reload IMM Draw Size"]
 	]
-	[If, [FileExists, "IMMExtractor_2018.zsc"]
+	[If, [FileExists, "IMMExtractor_2020.zsc"]
 		,//
 		//do nothing
 		,//else
 		[IHide, "zplugin:plugins manager:a.IMM Extractor"]
 		[IHide, "zplugin:plugins manager:Reload IMM Extractor"]
 	]
-	[If, [FileExists, "KeyshotScaleSender_2018.zsc"]
+	[If, [FileExists, "KeyshotScaleSender_2020.zsc"]
 		,//
 		//do nothing
 		,//else
 		[IHide, "zplugin:plugins manager:a.Keyshot Scale Sender"]
 		[IHide, "zplugin:plugins manager:Reload Keyshot Scale Sender"]
 	]
-	[If, [FileExists, "MatCapBaker_2018.zsc"]
+	[If, [FileExists, "MatCapBaker_2020.zsc"]
 		,//
 		//do nothing
 		,//else
 		[IHide, "zplugin:plugins manager:a.MatCap Baker"]
 		[IHide, "zplugin:plugins manager:Reload MatCap Baker"]
 	]
-	[If, [FileExists, "PanelLoopPresets_2018.zsc"]
+	[If, [FileExists, "PanelLoopPresets_2020.zsc"]
 		,//
 		//do nothing
 		,//else
 		[IHide, "zplugin:plugins manager:a.PanelLoop Presets"]
 		[IHide, "zplugin:plugins manager:Reload PanelLoop Presets"]
 	]
-	[If, [FileExists, "RingMaster_2018.zsc"]
+	[If, [FileExists, "RingMaster_2020.zsc"]
 		,//
 		//do nothing
 		,//else
 		[IHide, "zplugin:plugins manager:a.Ring Master"]
 		[IHide, "zplugin:plugins manager:Reload Ring Master"]
 	]
-	[If, [FileExists, "Turntabler_2018.zsc"]
+	[If, [FileExists, "Turntabler_2020.zsc"]
 		,//
 		//do nothing
 		,//else
 		[IHide, "zplugin:plugins manager:a.Turntabler"]
 		[IHide, "zplugin:plugins manager:Reload Turntabler"]
 	]
-	[If, [FileExists, "ZCnc_2018.zsc"]
+	[If, [FileExists, "ZCnc_2020.zsc"]
 		,//
 		//do nothing
 		,//else
 		[IHide, "zplugin:plugins manager:a.Z Cnc"]
 		[IHide, "zplugin:plugins manager:Reload Z Cnc"]
 	]
-	[If, [FileExists, "IntersectionMasker_2019.zsc"]
+	[If, [FileExists, "IntersectionMasker_2020.zsc"]
 		,//
 		//do nothing
 		,//else
 		[IHide, "zplugin:plugins manager:a.Intersection Masker"]
 		[IHide, "zplugin:plugins manager:Reload Intersection Masker"]
 	]
-	[If, [FileExists, "KitcoMetalQuotes_2018.zsc"]
+	[If, [FileExists, "KitcoMetalQuotes_2020.zsc"]
 		,//
 		//do nothing
 		,//else
 		[IHide, "zplugin:plugins manager:a.Kitco Metal Quotes"]
 		[IHide, "zplugin:plugins manager:Reload Kitco Metal Quotes"]
 	]
-	[If, [FileExists, "ZColor_2019.zsc"]
-		,//
-		//do nothing
-		,//else
-		[IHide, "zplugin:plugins manager:a.ZColor"]
-		[IHide, "zplugin:plugins manager:Reload ZColor"]
-	]
+// no longer need to check if zcolor is installed after the ZBrush 2020 update
+	// [If, [FileExists, "ZColor_2020.zsc"]
+	// 	,//
+	// 	//do nothing
+	// 	,//else
+	// 	[IHide, "zplugin:plugins manager:a.ZColor"]
+	// 	[IHide, "zplugin:plugins manager:Reload ZColor"]
+	// ]
+
 	[If, [FileExists, "ZSceneMgr.zsc"]
 		,//
 		//do nothing
@@ -2544,7 +2626,7 @@
             ,//cmds
 		    [IClose, "Zplugin:ZRepeatIt"]
 	    ]
-	    [FileNameSetNext, "ZRepeatIt_2018.zsc"]
+	    [FileNameSetNext, "ZRepeatIt_2020.zsc"]
 	    [IPress, "ZScript:load"]
     ]
     [If, (pluginId = 2) //NanoTiles
@@ -2553,7 +2635,7 @@
             ,//cmds
 		    [IClose, "Zplugin:NanoTile texture"]
 	    ]
-	    [FileNameSetNext, "NanoTileTextures_2018.zsc"]
+	    [FileNameSetNext, "NanoTileTextures_2020.zsc"]
 	    [IPress, "ZScript:load"]
     ]
 
@@ -2563,7 +2645,7 @@
             ,//cmds
 		    [IClose, "Zplugin:zStartup Master"]
 	    ]
-	    [FileNameSetNext, "ZStartupMaster_2018.zsc"]
+	    [FileNameSetNext, "ZStartupMaster_2020.zsc"]
 	    [IPress, "ZScript:load"]
     ]
     [If, (pluginId = 4) //Live Boolean Master
@@ -2572,7 +2654,7 @@
             ,//cmds
 		    [IClose, "Zplugin:Live Boolean Master"]
 	    ]
-	    [FileNameSetNext, "LiveBooleanMaster_2018.zsc"]
+	    [FileNameSetNext, "LiveBooleanMaster_2020.zsc"]
 	    [IPress, "ZScript:load"]
     ]
     [If, (pluginId = 5) //Clean Tool Master
@@ -2581,7 +2663,7 @@
             ,//cmds
 		    [IClose, "Zplugin:Clean Tool Master"]
 	    ]
-	    [FileNameSetNext, "CleanToolMaster_2018.zsc"]
+	    [FileNameSetNext, "CleanToolMaster_2020.zsc"]
 	    [IPress, "ZScript:load"]
     ]
 
@@ -2591,7 +2673,7 @@
             ,//cmds
 		    [IClose, "Zplugin:DynaMesh Master"]
 	    ]
-	    [FileNameSetNext, "DynaMeshMaster_2018.zsc"]
+	    [FileNameSetNext, "DynaMeshMaster_2020.zsc"]
 	    [IPress, "ZScript:load"]
     ]
     
@@ -2601,7 +2683,7 @@
             ,//cmds
 		    [IClose, "Zplugin:IMM Draw Size"]
 	    ]
-	    [FileNameSetNext, "IMMDrawSize_2018.zsc"]
+	    [FileNameSetNext, "IMMDrawSize_2020.zsc"]
 	    [IPress, "ZScript:load"]
     ]
     
@@ -2611,7 +2693,7 @@
             ,//cmds
 		    [IClose, "Zplugin:IMM Extractor"]
 	    ]
-	    [FileNameSetNext, "IMMExtractor_2018.zsc"]
+	    [FileNameSetNext, "IMMExtractor_2020.zsc"]
 	    [IPress, "ZScript:load"]
     ]
     
@@ -2621,7 +2703,7 @@
             ,//cmds
 		    [IClose, "Zplugin:Keyshot Scale Sender"]
 	    ]
-	    [FileNameSetNext, "KeyshotScaleSender_2018.zsc"]
+	    [FileNameSetNext, "KeyshotScaleSender_2020.zsc"]
 	    [IPress, "ZScript:load"]
     ]
     
@@ -2631,7 +2713,7 @@
             ,//cmds
 		    [IClose, "Zplugin:Matcap Baker"]
 	    ]
-	    [FileNameSetNext, "MatCapBaker_2018.zsc"]
+	    [FileNameSetNext, "MatCapBaker_2020.zsc"]
 	    [IPress, "ZScript:load"]
     ]
     
@@ -2641,7 +2723,7 @@
             ,//cmds
 		    [IClose, "Zplugin:PanelLoop Presets"]
 	    ]
-	    [FileNameSetNext, "PanelLoopPresets_2018.zsc"]
+	    [FileNameSetNext, "PanelLoopPresets_2020.zsc"]
 	    [IPress, "ZScript:load"]
     ]
     
@@ -2651,7 +2733,7 @@
             ,//cmds
 		    [IClose, "Zplugin:Ring Master"]
 	    ]
-	    [FileNameSetNext, "RingMaster_2018.zsc"]
+	    [FileNameSetNext, "RingMaster_2020.zsc"]
 	    [IPress, "ZScript:load"]
     ]
 
@@ -2661,7 +2743,7 @@
             ,//cmds
 		    [IClose, "Zplugin:Turntabler"]
 	    ]
-	    [FileNameSetNext, "Turntabler_2018.zsc"]
+	    [FileNameSetNext, "Turntabler_2020.zsc"]
 	    [IPress, "ZScript:load"]
     ]
     
@@ -2671,7 +2753,7 @@
             ,//cmds
 		    [IClose, "Zplugin:Z Cnc"]
 	    ]
-	    [FileNameSetNext, "ZCnc_2018.zsc"]
+	    [FileNameSetNext, "ZCnc_2020.zsc"]
 	    [IPress, "ZScript:load"]
     ]
     
@@ -2681,7 +2763,7 @@
             ,//cmds
 		    [IClose, "Zplugin:Intersection Masker"]
 	    ]
-	    [FileNameSetNext, "IntersectionMasker_2018.zsc"]
+	    [FileNameSetNext, "IntersectionMasker_2020.zsc"]
 	    [IPress, "ZScript:load"]
     ]
     
@@ -2691,7 +2773,7 @@
             ,//cmds
 		    [IClose, "Zplugin:Kitco Metal Quotes"]
 	    ]
-	    [FileNameSetNext, "KitcoMetalQuotes_2018.zsc"]
+	    [FileNameSetNext, "KitcoMetalQuotes_2020.zsc"]
 	    [IPress, "ZScript:load"]
     ]
     
@@ -2701,7 +2783,7 @@
             ,//cmds
 		    [IClose, "Zplugin:ZColor"]
 	    ]
-	    [FileNameSetNext, "ZColor_2018.zsc"]
+	    [FileNameSetNext, "ZColor_2020.zsc"]
 	    [IPress, "ZScript:load"]
     ]
     
@@ -2711,7 +2793,7 @@
             ,//cmds
 		    [IClose, "Zplugin:Lumiere"]
 	    ]
-	    [FileNameSetNext, "Lumiere_2019.zsc"]
+	    [FileNameSetNext, "Lumiere_2020.zsc"]
 	    [IPress, "ZScript:load"]
     ]
     
@@ -2721,7 +2803,7 @@
             ,//cmds
 		    [IClose, "Zplugin:Matiere"]
 	    ]
-	    [FileNameSetNext, "Matiere3d_2019.zsc"]
+	    [FileNameSetNext, "Matiere3d_2020.zsc"]
 	    [IPress, "ZScript:load"]
     ]
     
@@ -2741,7 +2823,7 @@
             ,//cmds
 		    [IClose, "Zplugin:ZSketcher"]
 	    ]
-	    [FileNameSetNext, "zsketcher_2019.zsc"]
+	    [FileNameSetNext, "zsketcher_2020.zsc"]
 	    [IPress, "ZScript:load"]
     ]
     
@@ -2751,7 +2833,7 @@
             ,//cmds
 		    [IClose, "Zplugin:zBaker"]
 	    ]
-	    [FileNameSetNext, "zBaker_2019.zsc"]
+	    [FileNameSetNext, "zBaker_2020.zsc"]
 	    [IPress, "ZScript:load"]
     ]
     
@@ -2761,7 +2843,7 @@
             ,//cmds
 		    [IClose, "Zplugin:ZIllustrator"]
 	    ]
-	    [FileNameSetNext, "ZIllustrator_2019.zsc"]
+	    [FileNameSetNext, "ZIllustrator_2020.zsc"]
 	    [IPress, "ZScript:load"]
     ]
     
@@ -2771,7 +2853,7 @@
             ,//cmds
 		    [IClose, "Zplugin:Minimal UI"]
 	    ]
-	    [FileNameSetNext, "Minimal_UI_2018.zsc"]
+	    [FileNameSetNext, "Minimal_UI_2020.zsc"]
 	    [IPress, "ZScript:load"]
     ]
     
@@ -2781,7 +2863,7 @@
             ,//cmds
 		    [IClose, "Zplugin:Python for ZBrush"]
 	    ]
-	    [FileNameSetNext, "PyZbrush_2019.zsc"]
+	    [FileNameSetNext, "PyZbrush_2020.zsc"]
 	    [IPress, "ZScript:load"]
     ]
     
@@ -3034,17 +3116,36 @@
 	    [FileNameSetNext, "Camera_Bag.zsc"]
 	    [IPress, "ZScript:load"]
     ]
-/*
-    [If, (pluginId = 51) //ZColor
+
+	[If, (pluginId = 51) //Layer Brush Depth
         ,//cmds
-        [If, [IExists, "Zplugin:ZColor" ]
+        [If, [IExists, "Zplugin:Layer Brush Depth" ]
             ,//cmds
-		    [IClose, "Zplugin:ZColor"]
+		    [IClose, "Zplugin:Layer Brush Depth"]
 	    ]
-	    [FileNameSetNext, "ZColor_4R8.zsc"]
+	    [FileNameSetNext, "LayerBrushDepth_2020.zsc"]
 	    [IPress, "ZScript:load"]
     ]
-*/
+	[If, (pluginId = 52) //Quick Scaler
+        ,//cmds
+        [If, [IExists, "Zplugin:Quick Scaler" ]
+            ,//cmds
+		    [IClose, "Zplugin:Quick Scaler"]
+	    ]
+	    [FileNameSetNext, "QuickScaler_2020.zsc"]
+	    [IPress, "ZScript:load"]
+    ]
+	[If, (pluginId = 53) //ZBrush Compositor
+        ,//cmds
+        [If, [IExists, "Zplugin:ZBrush Compositor" ]
+            ,//cmds
+		    [IClose, "Zplugin:ZBrush Compositor"]
+	    ]
+	    [FileNameSetNext, "ZBrushCompositor_2020.zsc"]
+	    [IPress, "ZScript:load"]
+    ]
+
+
 ]
 
 
@@ -3699,36 +3800,36 @@
 	[RoutineCall, UIStateToFile]
 	,0//disable
 //DO nothing
-,.875
+,1
 ]
-[IButton, "Zplugin:Plugins Manager:Reload Intersection Masker", "", 
-	[VarSet, pluginID, 15]
-	[RoutineCall, ReloadPlugin]
-	,//disable
-	,.125,,"plugins_manager_2020/icons/reload.psd",.125
-]
+// [IButton, "Zplugin:Plugins Manager:Reload Intersection Masker", "", 
+// 	[VarSet, pluginID, 15]
+// 	[RoutineCall, ReloadPlugin]
+// 	,//disable
+// 	,.125,,"plugins_manager_2020/icons/reload.psd",.125
+// ]
 
 [ISwitch, "Zplugin:Plugins Manager:a.ZColor",
-	[MVarGet,nk_mpm_uiSwitchesState,69]//enable
+	[MVarGet,nk_mpm_uiSwitchesState,46]//enable
 	,"Show or Hide ZColor by pixologic plugin."
 	,// when pressed
 	[RoutineCall, ShowZColor]
-	[MVarSet,nk_mpm_uiSwitchesState,69,1]
+	[MVarSet,nk_mpm_uiSwitchesState,46,1]
 	[RoutineCall, UIStateToFile]
 	,// when unpressed
 	[RoutineCall, HideZColor]
-	[MVarSet,nk_mpm_uiSwitchesState,69,0]
+	[MVarSet,nk_mpm_uiSwitchesState,46,0]
 	[RoutineCall, UIStateToFile]
 	,0//disable
 //DO nothing
-,.875
+,1
 ]
-[IButton, "Zplugin:Plugins Manager:Reload ZColor", "", 
-	[VarSet, pluginID, 17]
-	[RoutineCall, ReloadPlugin]
-	,//disable
-	,.125,,"plugins_manager_2020/icons/reload.psd",.125
-]
+// [IButton, "Zplugin:Plugins Manager:Reload ZColor", "", 
+// 	[VarSet, pluginID, 17]
+// 	[RoutineCall, ReloadPlugin]
+// 	,//disable
+// 	,.125,,"plugins_manager_2020/icons/reload.psd",.125
+// ]
 
 
 [IButton, "Zplugin:Plugins Manager:Pixologic Plugins", "", 
@@ -4056,6 +4157,30 @@
 ]
 
 
+// [ISwitch, "Zplugin:Plugins Manager:a.ZColor",
+// 	[MVarGet,nk_mpm_uiSwitchesState,46]//enable
+// 	,"Show or Hide Taylors Tools plugin."
+// 	,// when pressed
+// 	[RoutineCall, ShowZColor]
+// 	[MVarSet,nk_mpm_uiSwitchesState,46,1]
+// 	[RoutineCall, UIStateToFile]
+// 	,// when unpressed
+// 	[RoutineCall, HideZColor]
+// 	[MVarSet,nk_mpm_uiSwitchesState,46,0]
+// 	[RoutineCall, UIStateToFile]
+// 	,0//disable
+// //DO nothing
+// ,.875
+// ]
+
+// [IButton, "Zplugin:Plugins Manager:Reload ZColor", "", 
+// 	[VarSet, pluginID, 52]
+// 	[RoutineCall, ReloadPlugin]
+// 	,//disable
+// 	,.125,,"plugins_manager_2020/icons/reload.psd",.125
+// ]
+
+
 [ISwitch, "Zplugin:Plugins Manager:a.Kitco Metal Quotes",
 	[MVarGet,nk_mpm_uiSwitchesState,68]//enable
 	,"Show or Hide Intersection Masker plugin."
@@ -4078,7 +4203,71 @@
 	,.125,,"plugins_manager_2020/icons/reload.psd",.125
 ]
 
+[ISwitch, "Zplugin:Plugins Manager:a.Layer Brush Depth",
+	[MVarGet,nk_mpm_uiSwitchesState,70]//enable
+	,"Show or Hide Layer Brush Depth plugin."
+	,// when pressed
+	[RoutineCall, ShowLayerBrushDepth]
+	[MVarSet,nk_mpm_uiSwitchesState,70,1]
+	[RoutineCall, UIStateToFile]
+	,// when unpressed
+	[RoutineCall, HideLayerBrushDepth]
+	[MVarSet,nk_mpm_uiSwitchesState,70,0]
+	[RoutineCall, UIStateToFile]
+	,0//disable
+//DO nothing
+,.875
+]
+[IButton, "Zplugin:Plugins Manager:Reload Layer Brush Depth", "", 
+	[VarSet, pluginID, 50]//change the plugin ID
+	[RoutineCall, ReloadPlugin]
+	,//disable
+	,.125,,"plugins_manager_2020/icons/reload.psd",.125
+]
 
+[ISwitch, "Zplugin:Plugins Manager:a.Quick Scaler",
+	[MVarGet,nk_mpm_uiSwitchesState,71]//enable
+	,"Show or Hide Quick Scaler plugin."
+	,// when pressed
+	[RoutineCall, ShowQuickScaler]
+	[MVarSet,nk_mpm_uiSwitchesState,71,1]
+	[RoutineCall, UIStateToFile]
+	,// when unpressed
+	[RoutineCall, HideQuickScaler]
+	[MVarSet,nk_mpm_uiSwitchesState,71,0]
+	[RoutineCall, UIStateToFile]
+	,0//disable
+//DO nothing
+,.875
+]
+[IButton, "Zplugin:Plugins Manager:Reload Quick Scaler", "", 
+	[VarSet, pluginID, 51]//change the plugin ID
+	[RoutineCall, ReloadPlugin]
+	,//disable
+	,.125,,"plugins_manager_2020/icons/reload.psd",.125
+]
+
+[ISwitch, "Zplugin:Plugins Manager:a.ZBrush Compositor",
+	[MVarGet,nk_mpm_uiSwitchesState,72]//enable
+	,"Show or Hide ZBrush Compositor plugin."
+	,// when pressed
+	[RoutineCall, ShowZBrushCompositor]
+	[MVarSet,nk_mpm_uiSwitchesState,72,1]
+	[RoutineCall, UIStateToFile]
+	,// when unpressed
+	[RoutineCall, HideZBrushCompositor]
+	[MVarSet,nk_mpm_uiSwitchesState,72,0]
+	[RoutineCall, UIStateToFile]
+	,0//disable
+//DO nothing
+,.875
+]
+[IButton, "Zplugin:Plugins Manager:Reload ZBrush Compositor", "", 
+	[VarSet, pluginID, 52]//change the plugin ID
+	[RoutineCall, ReloadPlugin]
+	,//disable
+	,.125,,"plugins_manager_2020/icons/reload.psd",.125
+]
 
 [IButton, "Zplugin:Plugins Manager:Puppet-Master Plugins", "", 
 	,1//disable
@@ -4814,31 +5003,7 @@
 	,//disable
 	,.125,,"plugins_manager_2020/icons/reload.psd",.125
 ]
-/*
-[ISwitch, "Zplugin:Plugins Manager:a.ZColor",
-	[MVarGet,nk_mpm_uiSwitchesState,69]//enable
-	,"Show or Hide Taylors Tools plugin."
-	,// when pressed
-	[RoutineCall, ShowZColor]
-	[MVarSet,nk_mpm_uiSwitchesState,69,1]
-	[RoutineCall, UIStateToFile]
-	,// when unpressed
-	[RoutineCall, HideZColor]
-	[MVarSet,nk_mpm_uiSwitchesState,69,0]
-	[RoutineCall, UIStateToFile]
-	,0//disable
-//DO nothing
-,.875
-]
 
-[IButton, "Zplugin:Plugins Manager:Reload ZColor", "", 
-	[VarSet, pluginID, 52]
-	[RoutineCall, ReloadPlugin]
-	,//disable
-	,.125,,"plugins_manager_2020/icons/reload.psd",.125
-]
-
-*/
 
 
 
