@@ -6,12 +6,12 @@
 # We should remove the third parties plugin
 # keep only official pixologic plugin.
 
-default = [     'Misc Utilities', 'Deactivation', 'Projection Master', 'QuickSketch', 
+default =   [   'Misc Utilities', 'Deactivation', 'Projection Master', 'QuickSketch', 
                 '3D Print Hub', 'Adjust Plugin', 'Maya Blend Shapes', 'Decimation Master',
                 'FBX ExportImport', 'Intersection Masker', 'Multi Map Exporter', 'PolygroupIt',
                 'Scale Master', 'Subtool Master', 'Text 3D & Vector Shapes', 'Transpose Master',
                 'Uv Master', 'ZBrush to Photoshop', 'ZColor'
-          ]
+            ]
 
 official =  [   'Layer Brush Depth', 'Quick Scaler', 'ZBrush Compositor', 'Kitco Metal Quotes',
                 'Ring Master', 'NanoTile Textures', 'Z Cnc', 'zStartup Master',
@@ -19,4 +19,14 @@ official =  [   'Layer Brush Depth', 'Quick Scaler', 'ZBrush Compositor', 'Kitco
                 'Matcap Baker', 'Live Boolean Master', 'DynaMesh Master', 'Keyshot Scale Sender',
                 'Turntabler', 'IMM Draw Size'
             ]
+
+to_remove = [ 'Zscene Manager', 'XMD', 'Middle Button', 'ZAdjustor',
+                'PLY format', 'FjTools', 'ETools', 'Curve Helper', 
+                'Multi Snapshot', 'Rename Note', 'Tile Helper', 'Styx',
+                'Quick Tools', 'Eazy Toolz', 'Taylors Tools', 'Brad 3D Texture Tools',
+                'Calispers Master', 'Camera Bag',
+                'Lumiere', 'Matiere', 'zCycler Pro', 'Zsketcher', 'zBaker',
+                'zIllustrator', 'Minimal UI', 'Python for ZBrush', 'PuppetMaster Dev Tools' 
+            ]
+
 
