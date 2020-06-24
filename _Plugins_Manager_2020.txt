@@ -1280,7 +1280,7 @@
 
 [ISwitch, "Zplugin:Plugins Manager:a.NanoTile Textures",
 	[MVarGet,nk_mpm_uiSwitchesState,30]//enable
-	,"Show or Hide NanoTile Texture plugin."
+	,"Show or Hide NanoTile Textures plugin."
 	,// when pressed
 	[RoutineCall, show_plugin, "NanoTile Textures"]
 	[MVarSet,nk_mpm_uiSwitchesState,30,1]
