@@ -171,7 +171,7 @@
 				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.Layer Brush Depth"],[VarSet,idx,27][LoopExit]]
 				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.Live Boolean Master"],[VarSet,idx,28][LoopExit]] 
 				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.Matcap Baker"],[VarSet,idx,29][LoopExit]]
-				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.NanoTile Texture"],[VarSet,idx,30][LoopExit]]
+				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.NanoTile Textures"],[VarSet,idx,30][LoopExit]]
 				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.PanelLoop Presets"],[VarSet,idx,31][LoopExit]]
 				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.Quick Scaler"],[VarSet,idx,32][LoopExit]]
 				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.Ring Master"],[VarSet,idx,33][LoopExit]]
@@ -243,7 +243,7 @@
 	[IEnable, "Zplugin:Plugins Manager:a.ZColor"]
 	
 	[IEnable, "Zplugin:Plugins Manager:a.zRepeatIt"]
-	[IEnable, "Zplugin:Plugins Manager:a.NanoTile Texture"]
+	[IEnable, "Zplugin:Plugins Manager:a.NanoTile Textures"]
 	[IEnable, "Zplugin:Plugins Manager:a.zStartup Master"]
 	[IEnable, "Zplugin:Plugins Manager:a.Live Boolean Master"]
 	[IEnable, "Zplugin:Plugins Manager:a.Clean Tool Master"]	
@@ -357,7 +357,7 @@
 */	
 
 	[IUnPress, "Zplugin:Plugins Manager:a.zRepeatIt"]
-	[IUnPress, "Zplugin:Plugins Manager:a.NanoTile Texture"]
+	[IUnPress, "Zplugin:Plugins Manager:a.NanoTile Textures"]
 	[IUnPress, "Zplugin:Plugins Manager:a.zStartup Master"]
 	[IUnPress, "Zplugin:Plugins Manager:a.Live Boolean Master"]	
 	[IUnPress, "Zplugin:Plugins Manager:a.Clean Tool Master"]	
@@ -412,7 +412,7 @@
 */
 	
 	[IPress, "Zplugin:Plugins Manager:a.zRepeatIt"]
-	[IPress, "Zplugin:Plugins Manager:a.NanoTile Texture"]
+	[IPress, "Zplugin:Plugins Manager:a.NanoTile Textures"]
 	[IPress, "Zplugin:Plugins Manager:a.zStartup Master"]
 	[IPress, "Zplugin:Plugins Manager:a.Clean Tool Master"]
 	[IPress, "Zplugin:Plugins Manager:a.Live Boolean Master"]
@@ -447,8 +447,8 @@
 		,//
 		//do nothing
 		,//else
-		[IHide, "zplugin:plugins manager:a.NanoTile Texture"]
-		//[IHide, "zplugin:plugins manager:Reload NanoTile Texture"]
+		[IHide, "zplugin:plugins manager:a.NanoTile Textures"]
+		//[IHide, "zplugin:plugins manager:Reload NanoTile Textures"]
 	]
 	[If, [FileExists, "ZStartupMaster_2020.zsc"]
 		,//
@@ -684,7 +684,7 @@
             ,//cmds
             [RoutineCall, hide_plugin, "zRepeatIt"]
         ]
-		[If, ( [IGet, "zplugin:Plugins Manager:a.NanoTile Texture"] == 0 )
+		[If, ( [IGet, "zplugin:Plugins Manager:a.NanoTile Textures"] == 0 )
             ,//cmds
             [RoutineCall, hide_plugin, "NanoTiles Texture"]
         ]
@@ -1278,15 +1278,15 @@
 ,1
 ]
 
-[ISwitch, "Zplugin:Plugins Manager:a.NanoTile Texture",
+[ISwitch, "Zplugin:Plugins Manager:a.NanoTile Textures",
 	[MVarGet,nk_mpm_uiSwitchesState,30]//enable
 	,"Show or Hide NanoTile Texture plugin."
 	,// when pressed
-	[RoutineCall, show_plugin, "NanoTiles Texture"]
+	[RoutineCall, show_plugin, "NanoTile Textures"]
 	[MVarSet,nk_mpm_uiSwitchesState,30,1]
 	[RoutineCall, UIStateToFile]
 	,// when unpressed
-	[RoutineCall, hide_plugin, "NanoTiles Texture"]
+	[RoutineCall, hide_plugin, "NanoTile Textures"]
 	[MVarSet,nk_mpm_uiSwitchesState,30,0]
 	[RoutineCall, UIStateToFile]
 	,0//disable
