@@ -1,0 +1,1089 @@
+/*
+ * Plugin Manager for ZBrush 2021
+ * Credits : Kirsch Nicolas
+ *
+*/
+
+[If,[MemGetSize,nk_mpm_pluginStatus],,
+	[VarSet, filename, "plugins_manager_2021\uistates.zvr"]
+    [If, [FileExists,filename],
+        [MemCreateFromFile,nk_mpm_pluginStatus, filename,]
+		,//else
+        [MVarDef,nk_mpm_pluginStatus,44,0]
+		
+		[MVarSet,nk_mpm_pluginStatus,0,0] // a.Maximize plugins (zplugin)
+		[MVarSet,nk_mpm_pluginStatus,1,1] // 3d print hub
+		[MVarSet,nk_mpm_pluginStatus,2,1] // Ambient Occlusion
+		[MVarSet,nk_mpm_pluginStatus,3,1] // adjust plugin
+		[MVarSet,nk_mpm_pluginStatus,4,1] // deactivation
+		[MVarSet,nk_mpm_pluginStatus,5,1] // Decimation Master
+		[MVarSet,nk_mpm_pluginStatus,6,1] // fbx export import
+		[MVarSet,nk_mpm_pluginStatus,7,1] // Intersection Masker
+		[MVarSet,nk_mpm_pluginStatus,8,1] // Maya blend shpaes
+		[MVarSet,nk_mpm_pluginStatus,9,1] // misc utilities
+		[MVarSet,nk_mpm_pluginStatus,10,1] // multi map exporter
+		[MVarSet,nk_mpm_pluginStatus,11,1] // PolygroupIt
+
+		[MVarSet,nk_mpm_pluginStatus,12,1] // projection master
+        [MVarSet,nk_mpm_pluginStatus,13,1] // quicksketch
+		[MVarSet,nk_mpm_pluginStatus,14,1] // Scale Master
+		[MVarSet,nk_mpm_pluginStatus,15,1] // Subtool Master
+		[MVarSet,nk_mpm_pluginStatus,16,1] // text3d
+		[MVarSet,nk_mpm_pluginStatus,17,1] // Transpose Master
+		[MVarSet,nk_mpm_pluginStatus,18,1] // USD Format
+		[MVarSet,nk_mpm_pluginStatus,19,1] // uv master       
+		[MVarSet,nk_mpm_pluginStatus,20,1] // zbrush to photoshop
+		[MVarSet,nk_mpm_pluginStatus,21,1] // zcolor
+
+		[MVarSet,nk_mpm_pluginStatus,22,1] // clean tool mesh
+		[MVarSet,nk_mpm_pluginStatus,23,1] // dynamesh Utility
+		[MVarSet,nk_mpm_pluginStatus,24,1] // imm draw size
+		[MVarSet,nk_mpm_pluginStatus,25,1] // imm extractor
+		[MVarSet,nk_mpm_pluginStatus,26,1] // keyshot scale sender
+		[MVarSet,nk_mpm_pluginStatus,27,1] // Kitco Metal Quotes
+		[MVarSet,nk_mpm_pluginStatus,28,1] // Layer Brush Depth
+		[MVarSet,nk_mpm_pluginStatus,29,1] // LiveBoolean Utility
+		[MVarSet,nk_mpm_pluginStatus,30,1] // matcap Baker
+		[MVarSet,nk_mpm_pluginStatus,31,1] // NanoTiles
+		[MVarSet,nk_mpm_pluginStatus,32,1] // Panelloop presets
+		[MVarSet,nk_mpm_pluginStatus,33,1] // Precision Extract
+		[MVarSet,nk_mpm_pluginStatus,34,1] // Precision Move
+		[MVarSet,nk_mpm_pluginStatus,35,1] // Quick Scaler
+		[MVarSet,nk_mpm_pluginStatus,36,1] // ring Utility
+		[MVarSet,nk_mpm_pluginStatus,37,1] // turntabler
+		[MVarSet,nk_mpm_pluginStatus,38,1] // ZBrush Compositor
+		[MVarSet,nk_mpm_pluginStatus,39,1] // zcnc
+		[MVarSet,nk_mpm_pluginStatus,40,1] // ZrepeatIt
+		[MVarSet,nk_mpm_pluginStatus,41,1] // zstartup Utility
+
+	]
+]
+
+//Startup Routine
+[RoutineDef,Startup,
+    [VarDef,StartupWinID,0]
+    [VarDef,idx,100]
+    [IFreeze,
+        [If,[IExists,"Zplugin:Plugins Manager:Plugins Manager Logo"],
+            [VarSet,StartupWinID,[IGet,"Preferences:Utilities:View Window Id"]]
+            
+			[Loop,1,
+
+				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.Maximize plugins"],[VarSet,idx,0][LoopExit]]
+				//zPlugin
+				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.3D Print Hub"],[VarSet,idx,1][LoopExit]] 
+				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.Adjust Plugin"],[VarSet,idx,2][LoopExit]] 
+				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.Ambient Occlusion"],[VarSet,idx,3][LoopExit]]
+				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.Deactivation"],[VarSet,idx,4][LoopExit]] 
+				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.Decimation Master"],[VarSet,idx,5][LoopExit]] 
+				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.FBX ExportImport"],[VarSet,idx,6][LoopExit]] 
+				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.Intersection Masker"],[VarSet,idx,7][LoopExit]]
+				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.Maya Blend Shapes"],[VarSet,idx,8][LoopExit]] 
+				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.Misc Utilities"],[VarSet,idx,9][LoopExit]] 
+				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.Multi map Exporter"],[VarSet,idx,10][LoopExit]] 
+				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.PolygroupIt"],[VarSet,idx,11][LoopExit]]
+				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.Projection Master"],[VarSet,idx,12][LoopExit]] 
+				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.QuickSketch"],[VarSet,idx,13][LoopExit]] 
+				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.Scale Master"],[VarSet,idx,14][LoopExit]] 
+				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.Subtool Master"],[VarSet,idx,15][LoopExit]] 
+				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.Text 3d & Vector Shapes"],[VarSet,idx,16][LoopExit]]
+				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.Transpose Master"],[VarSet,idx,17][LoopExit]] 
+				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.USD Format"],[VarSet,idx,18][LoopExit]]
+				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.UV Master"],[VarSet,idx,19][LoopExit]] 
+				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.Zbrush to Photoshop"],[VarSet,idx,20][LoopExit]] 
+				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.ZColor"],[VarSet,idx,21][LoopExit]]
+
+				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.Clean Tool Utility"],[VarSet,idx,22][LoopExit]]
+				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.Dynamesh Utility"],[VarSet,idx,23][LoopExit]]
+				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.IMM Draw Size"],[VarSet,idx,24][LoopExit]]
+				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.IMM Extractor"],[VarSet,idx,25][LoopExit]]
+				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.Keyshot Scale Sender"],[VarSet,idx,26][LoopExit]]
+				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.Kitco Metal Quotes"],[VarSet,idx,27][LoopExit]]
+				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.Layer Brush Depth"],[VarSet,idx,28][LoopExit]]
+				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.Live Boolean Utility"],[VarSet,idx,29][LoopExit]] 
+				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.Matcap Baker"],[VarSet,idx,30][LoopExit]]
+				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.NanoTile Textures"],[VarSet,idx,31][LoopExit]]
+				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.PanelLoop Presets"],[VarSet,idx,32][LoopExit]]
+				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.Precision Extract"],[VarSet,idx,33][LoopExit]]
+				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.Precision Move"],[VarSet,idx,34][LoopExit]]
+				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.Quick Scaler"],[VarSet,idx,35][LoopExit]]
+				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.Ring Utility"],[VarSet,idx,36][LoopExit]]
+				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.Turntabler"],[VarSet,idx,37][LoopExit]]
+				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.ZBrush Compositor"],[VarSet,idx,38][LoopExit]]
+				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.Z Cnc"],[VarSet,idx,39][LoopExit]]
+				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.zRepeatIt"],[VarSet,idx,40][LoopExit]]
+				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.zStartup Utility"],[VarSet,idx,41][LoopExit]]
+
+			]//end loop
+
+            [If,idx != 100,
+                [If,[MVarGet,nk_mpm_pluginStatus,idx]==0,
+                    [MVarSet,nk_mpm_pluginStatus,idx,1]
+					,  
+                    [MVarSet,nk_mpm_pluginStatus,idx,0]
+					
+                ]   //end if
+            ]//end if
+        ]//end if
+    ]//end freeze
+]//Routine Startup	
+
+[RoutineDef,UIStateToFile,
+	[VarSet, filename, "plugins_manager_2021\uistates.zvr"]
+    //Store Memory to File
+    [MemSaveToFile,nk_mpm_pluginStatus, filename,1]//save file
+]
+
+
+[RoutineDef, SetEnableSwitches,
+
+
+	[IEnable, "Zplugin:Plugins Manager:a.Maximize plugins"]	
+
+	[IEnable, "Zplugin:Plugins Manager:a.QuickSketch"]
+	[IEnable, "Zplugin:Plugins Manager:a.Projection Master"]
+	[IEnable, "ZPlugin:Plugins Manager:a.Adjust Plugin"]
+	[IEnable, "Zplugin:Plugins Manager:a.Maya Blend Shapes"]
+	[IEnable, "Zplugin:Plugins Manager:a.3d Print Hub"]
+	[IEnable, "Zplugin:Plugins Manager:a.Zbrush To Photoshop"]
+	[IEnable, "Zplugin:Plugins Manager:a.Scale Master"]
+	[IEnable, "Zplugin:Plugins Manager:a.Subtool Master"]
+	[IEnable, "Zplugin:Plugins Manager:a.Transpose Master"]
+	[IEnable, "Zplugin:Plugins Manager:a.Multi Map Exporter"]
+	[IEnable, "Zplugin:Plugins Manager:a.FBX ExportImport"]
+	[IEnable, "Zplugin:Plugins Manager:a.Uv Master"]
+	[IEnable, "Zplugin:Plugins Manager:a.Misc Utilities"]
+	[IEnable, "Zplugin:Plugins Manager:a.Deactivation"]
+	[IEnable, "Zplugin:Plugins Manager:a.Text 3d & Vector Shapes"]
+	[IEnable, "Zplugin:Plugins Manager:a.Decimation Master"]
+	[IEnable, "Zplugin:Plugins Manager:a.PolygroupIt"]
+	[IEnable, "Zplugin:Plugins Manager:a.ZColor"]
+	
+	[IEnable, "Zplugin:Plugins Manager:a.zRepeatIt"]
+	[IEnable, "Zplugin:Plugins Manager:a.NanoTile Textures"]
+	[IEnable, "Zplugin:Plugins Manager:a.zStartup Utility"]
+	[IEnable, "Zplugin:Plugins Manager:a.Live Boolean Utility"]
+	[IEnable, "Zplugin:Plugins Manager:a.Clean Tool Utility"]	
+	[IEnable, "Zplugin:Plugins Manager:a.Dynamesh Utility"]	
+	[IEnable, "Zplugin:Plugins Manager:a.IMM Draw Size"]
+	[IEnable, "Zplugin:Plugins Manager:a.IMM Extractor"]
+	[IEnable, "Zplugin:Plugins Manager:a.Keyshot Scale Sender"]
+	[IEnable, "Zplugin:Plugins Manager:a.Matcap Baker"]
+	[IEnable, "Zplugin:Plugins Manager:a.PanelLoop Presets"]
+	[IEnable, "Zplugin:Plugins Manager:a.Ring Utility"]
+	[IEnable, "Zplugin:Plugins Manager:a.Turntabler"]
+	[IEnable, "Zplugin:Plugins Manager:a.Z Cnc"]
+	[IEnable, "Zplugin:Plugins Manager:a.Intersection Masker"]
+	[IEnable, "Zplugin:Plugins Manager:a.Kitco Metal Quotes"]
+	[IEnable, "Zplugin:Plugins Manager:a.Layer Brush Depth"]
+	[IEnable, "Zplugin:Plugins Manager:a.Quick Scaler"]
+	[IEnable, "Zplugin:Plugins Manager:a.ZBrush Compositor"]
+	[IEnable, "Zplugin:Plugins Manager:a.Precision Extract"]
+	[IEnable, "Zplugin:Plugins Manager:a.Precision Move"]
+	[IEnable, "Zplugin:Plugins Manager:a.Ambient Occlusion"]
+	[IEnable, "Zplugin:Plugins Manager:a.USD Format"]
+]
+
+// global Variables :
+[VarSet, pluginId,0]
+
+[RoutineDef, hide_plugin,
+
+	[If, [IExists, [StrMerge, "Zplugin:", plugin_name]]
+        ,//cmds
+        //do nothing
+		[IHide, [StrMerge, "zplugin:", plugin_name]]
+	]
+
+,plugin_name]
+
+
+[RoutineDef, show_plugin,
+    [VarSet, plugin_path, [StrMerge, "Zplugin:", plugin_name]]
+	[If, [IExists, plugin_path]
+        ,//cmds
+        //do nothing
+		[IShow, plugin_path]
+		[If,[IGet, "Zplugin:Plugins Manager:a.Maximize Plugins"]
+			,//cmds
+			[IKeyPress, SHIFT,[IClick, plugin_path]]
+		]
+		,//else
+		//is unloaded ?
+
+	]
+,plugin_name]
+
+[RoutineDef, HideAll,
+
+	[IUnPress, "zplugin:Plugins Manager:a.Quicksketch"]
+	[IUnPress, "Zplugin:Plugins Manager:a.Projection Master"]
+	[IUnPress, "ZPlugin:Plugins Manager:a.Adjust Plugin"]
+	[IUnPress, "Zplugin:Plugins Manager:a.Maya Blend Shapes"]
+	[IUnPress, "Zplugin:Plugins Manager:a.3d Print Hub"]
+	[IUnPress, "Zplugin:Plugins Manager:a.Zbrush To Photoshop"]
+	
+	[IUnPress, "Zplugin:Plugins Manager:a.Scale Master"]
+	[IUnPress, "Zplugin:Plugins Manager:a.Subtool Master"]
+	[IUnPress, "Zplugin:Plugins Manager:a.Transpose Master"]
+	[IUnPress, "Zplugin:Plugins Manager:a.Multi Map Exporter"]
+	[IUnPress, "Zplugin:Plugins Manager:a.FBX ExportImport"]
+	[IUnPress, "Zplugin:Plugins Manager:a.Uv Master"]
+	[IUnPress, "Zplugin:Plugins Manager:a.Misc Utilities"]
+	[IUnPress, "Zplugin:Plugins Manager:a.Deactivation"]
+	[IUnPress, "Zplugin:Plugins Manager:a.Text 3d & Vector Shapes"]
+	[IUnPress, "Zplugin:Plugins Manager:a.Decimation Master"]
+	[IUnPress, "Zplugin:Plugins Manager:a.PolygroupIt"]
+	[IUnPress, "Zplugin:Plugins Manager:a.ZColor"]
+	[IUnPress, "Zplugin:Plugins Manager:a.Ambient Occlusion"]
+	[IUnPress, "Zplugin:Plugins Manager:a.USD Format"]
+
+	[IUnPress, "Zplugin:Plugins Manager:a.zRepeatIt"]
+	[IUnPress, "Zplugin:Plugins Manager:a.NanoTile Textures"]
+	[IUnPress, "Zplugin:Plugins Manager:a.zStartup Utility"]
+	[IUnPress, "Zplugin:Plugins Manager:a.Live Boolean Utility"]	
+	[IUnPress, "Zplugin:Plugins Manager:a.Clean Tool Utility"]	
+	[IUnPress, "Zplugin:Plugins Manager:a.Dynamesh Utility"]	
+	[IUnPress, "Zplugin:Plugins Manager:a.IMM Draw Size"]
+	[IUnPress, "Zplugin:Plugins Manager:a.IMM Extractor"]
+	[IUnPress, "Zplugin:Plugins Manager:a.Keyshot Scale Sender"]
+	[IUnPress, "Zplugin:Plugins Manager:a.Matcap Baker"]
+	[IUnPress, "Zplugin:Plugins Manager:a.PanelLoop Presets"]
+	[IUnPress, "Zplugin:Plugins Manager:a.Ring Utility"]
+	[IUnPress, "Zplugin:Plugins Manager:a.Turntabler"]
+	[IUnPress, "Zplugin:Plugins Manager:a.Z Cnc"]
+	[IUnPress, "Zplugin:Plugins Manager:a.Intersection Masker"]
+	[IUnPress, "Zplugin:Plugins Manager:a.Kitco Metal Quotes"]
+	[IUnPress, "Zplugin:Plugins Manager:a.Layer Brush Depth"]
+	[IUnPress, "Zplugin:Plugins Manager:a.Quick Scaler"]
+	[IUnPress, "Zplugin:Plugins Manager:a.ZBrush Compositor"]
+	[IUnPress, "Zplugin:Plugins Manager:a.Precision Extract"]
+	[IUnPress, "Zplugin:Plugins Manager:a.Precision Move"]
+]
+
+[RoutineDef, ShowAll,
+
+	[IPress, "zplugin:Plugins Manager:a.Quicksketch"]
+	[IPress, "Zplugin:Plugins Manager:a.Projection Master"]
+	[IPress, "ZPlugin:Plugins Manager:a.Adjust Plugin"]
+	[IPress, "Zplugin:Plugins Manager:a.Maya Blend Shapes"]
+	[IPress, "Zplugin:Plugins Manager:a.3d Print Hub"]
+	[IPress, "Zplugin:Plugins Manager:a.Zbrush To Photoshop"]
+	[IPress, "Zplugin:Plugins Manager:a.Scale Master"]
+	[IPress, "Zplugin:Plugins Manager:a.Subtool Master"]
+	[IPress, "Zplugin:Plugins Manager:a.Transpose Master"]
+	[IPress, "Zplugin:Plugins Manager:a.Multi Map Exporter"]
+	[IPress, "Zplugin:Plugins Manager:a.FBX ExportImport"]
+	[IPress, "Zplugin:Plugins Manager:a.Uv Master"]
+	[IPress, "Zplugin:Plugins Manager:a.Misc Utilities"]
+	[IPress, "Zplugin:Plugins Manager:a.Deactivation"]
+	[IPress, "Zplugin:Plugins Manager:a.Text 3d & Vector Shapes"]
+	[IPress, "Zplugin:Plugins Manager:a.Decimation Master"]
+	[IPress, "Zplugin:Plugins Manager:a.PolygroupIt"]
+	[IPress, "Zplugin:Plugins Manager:a.ZColor"]
+	[IPress, "Zplugin:Plugins Manager:a.Ambient Occlusion"]
+	[IPress, "Zplugin:Plugins Manager:a.USD Format"]
+	
+	[IPress, "Zplugin:Plugins Manager:a.zRepeatIt"]
+	[IPress, "Zplugin:Plugins Manager:a.NanoTile Textures"]
+	[IPress, "Zplugin:Plugins Manager:a.zStartup Utility"]
+	[IPress, "Zplugin:Plugins Manager:a.Clean Tool Utility"]
+	[IPress, "Zplugin:Plugins Manager:a.Live Boolean Utility"]
+	[IPress, "Zplugin:Plugins Manager:a.Dynamesh Utility"]	
+	[IPress, "Zplugin:Plugins Manager:a.IMM Draw Size"]
+	[IPress, "Zplugin:Plugins Manager:a.IMM Extractor"]
+	[IPress, "Zplugin:Plugins Manager:a.Keyshot Scale Sender"]
+	[IPress, "Zplugin:Plugins Manager:a.Matcap Baker"]
+	[IPress, "Zplugin:Plugins Manager:a.PanelLoop Presets"]
+	[IPress, "Zplugin:Plugins Manager:a.Ring Utility"]
+	[IPress, "Zplugin:Plugins Manager:a.Turntabler"]
+	[IPress, "Zplugin:Plugins Manager:a.Z Cnc"]
+	[IPress, "Zplugin:Plugins Manager:a.Intersection Masker"]
+	[IPress, "Zplugin:Plugins Manager:a.Kitco Metal Quotes"]
+	[IPress, "Zplugin:Plugins Manager:a.Layer Brush Depth"]
+	[IPress, "Zplugin:Plugins Manager:a.Quick Scaler"]
+	[IPress, "Zplugin:Plugins Manager:a.ZBrush Compositor"]
+	[IPress, "Zplugin:Plugins Manager:a.Precision Extract"]
+	[IPress, "Zplugin:Plugins Manager:a.Precision Move"]
+
+
+]
+
+[RoutineDef, CheckInstalledPlugins,
+	
+	[If, [FileExists, "ZRepeatIt_2021.zsc"],,[IHide, "zplugin:plugins manager:a.ZRepeatIt"]]    
+	[If, [FileExists, "NanoTileTextures_2021.zsc"],,[IHide, "zplugin:plugins manager:a.NanoTile Textures"]]
+	[If, [FileExists, "ZStartupUtility_2021.zsc"],,[IHide, "zplugin:plugins manager:a.zStartup Utility"]]
+	[If, [FileExists, "CleanToolUtility_2021.zsc"],,[IHide, "zplugin:plugins manager:a.Clean Tool Utility"]]
+	[If, [FileExists, "LiveBooleanUtility_2021.zsc"],,[IHide, "zplugin:plugins manager:a.Live Boolean Utility"]]
+	[If, [FileExists, "DynaMeshUtility_2021.zsc"],,[IHide, "zplugin:plugins manager:a.DynaMesh Utility"]]
+	[If, [FileExists, "IMMDrawSize_2021.zsc"],,[IHide, "zplugin:plugins manager:a.IMM Draw Size"]]
+	[If, [FileExists, "IMMExtractor_2021.zsc"],,[IHide, "zplugin:plugins manager:a.IMM Extractor"]]
+	[If, [FileExists, "KeyshotScaleSender_2021.zsc"],, [IHide, "zplugin:plugins manager:a.Keyshot Scale Sender"]]
+	[If, [FileExists, "MatCapBaker_2021.zsc"],,[IHide, "zplugin:plugins manager:a.MatCap Baker"]]
+	[If, [FileExists, "PanelLoopPresets_2021.zsc"],, [IHide, "zplugin:plugins manager:a.PanelLoop Presets"]]
+	[If, [FileExists, "RingUtility_2021.zsc"],, [IHide, "zplugin:plugins manager:a.Ring Utility"]]
+	[If, [FileExists, "Turntabler_2021.zsc"],, [IHide, "zplugin:plugins manager:a.Turntabler"]]
+	[If, [FileExists, "ZCnc_2021.zsc"],, [IHide, "zplugin:plugins manager:a.Z Cnc"]]
+	[If, [FileExists, "IntersectionMasker_2020.zsc"],, [IHide, "zplugin:plugins manager:a.Intersection Masker"]]
+	[If, [FileExists, "KitcoMetalQuotes_2021.zsc"],, [IHide, "zplugin:plugins manager:a.Kitco Metal Quotes"]]
+	[If, [FileExists, "LayerBrushDepth_2021.zsc"],,	[IHide, "zplugin:plugins manager:a.Layer Brush Depth"]]
+	[If, [FileExists, "QuickScaler_2021.zsc"],, [IHide, "zplugin:plugins manager:a.Quick Scaler"]]
+	[If, [FileExists, "ZBrushCompositor_2021.zsc"],, [IHide, "zplugin:plugins manager:a.ZBrush Compositor"]]
+
+	[If, [FileExists, "PrecisionExtract_2021.zsc"],, [IHide, "zplugin:plugins manager:a.Precision Extract"]]
+	[If, [FileExists, "PrecisionMove_2021.zsc"],, [IHide, "zplugin:plugins manager:a.Precision Move"]]
+]
+
+
+[RoutineDef, StartupPM,
+
+		[RoutineCall, CheckInstalledPlugins]//put it there instead ?
+
+        [If,[IGet, "zplugin:Plugins Manager:a.Quicksketch"],,[RoutineCall, hide_plugin, "Quicksketch"]]
+        [If,[IGet, "zplugin:Plugins Manager:a.Projection Master"],,[RoutineCall, hide_plugin, "Projection Master"]]
+        [If,[IGet, "zplugin:Plugins Manager:a.Adjust Plugin"],,[RoutineCall, hide_plugin, "Adjust Plugin"]]
+        [If,[IGet, "zplugin:Plugins Manager:a.Maya Blend Shapes"],,[RoutineCall, hide_plugin, "Maya Blend Shapes"]]
+
+        [If, ( [IGet, "zplugin:Plugins Manager:a.3D Print Hub"] == 0 )
+            ,//cmds
+            [RoutineCall, hide_plugin, "3D Print Hub"]
+        ]
+        [If, ( [IGet, "zplugin:Plugins Manager:a.Zbrush to Photoshop"] == 0 )
+            ,//cmds
+            [RoutineCall, hide_plugin, "Zbrush To Photoshop"]
+        ]		
+        [If, ( [IGet, "zplugin:Plugins Manager:a.Scale Master"] == 0 )
+            ,//cmds
+            [RoutineCall, hide_plugin, "Scale Master"]
+        ]
+        [If, ( [IGet, "zplugin:Plugins Manager:a.Subtool Master"] == 0 )
+            ,//cmds
+            [RoutineCall, hide_plugin, "Subtool Master"]
+        ]
+        [If, ( [IGet, "zplugin:Plugins Manager:a.Transpose Master"] == 0 )
+            ,//cmds
+            [RoutineCall, hide_plugin, "Transpose Master"]
+        ]
+        [If, ( [IGet, "zplugin:Plugins Manager:a.Multi Map Exporter"] == 0 )
+            ,//cmds
+            [RoutineCall, hide_plugin, "Multi Map Exporter"]
+        ]
+        [If, ( [IGet, "zplugin:Plugins Manager:a.FBX ExportImport"] == 0 )
+            ,//cmds
+            [RoutineCall, hide_plugin, "FBX ExportImport"]
+        ]
+		[If, ( [IGet, "zplugin:Plugins Manager:a.Uv Master"] == 0 )
+            ,//cmds
+            [RoutineCall, hide_plugin, "Uv Master"]
+        ]
+        [If, ( [IGet, "zplugin:Plugins Manager:a.Misc Utilities"] == 0 )
+            ,//cmds
+            [RoutineCall, hide_plugin, "Misc Utilities"]
+        ]
+        [If, ( [IGet, "zplugin:Plugins Manager:a.Deactivation"] == 0 )
+            ,//cmds
+            [RoutineCall, hide_plugin, "Deactivation"]
+        ]
+        [If, ( [IGet, "zplugin:Plugins Manager:a.Decimation Master"] == 0 )
+            ,//cmds
+            [RoutineCall, hide_plugin, "Decimation Master"]
+        ]
+        [If, ( [IGet, "zplugin:Plugins Manager:a.PolygroupIt"] == 0 )
+            ,//cmds
+            [RoutineCall, hide_plugin, "PolygroupIt"]
+        ]
+		[If, ( [IGet, "zplugin:Plugins Manager:a.Text 3d & Vector Shapes"] == 0 )
+            ,//cmds
+            [RoutineCall, hide_plugin, "Text 3d"]
+        ]
+		[If, ( [IGet, "zplugin:Plugins Manager:a.Ambient Occlusion"] == 0 )
+            ,//cmds
+            [RoutineCall, hide_plugin, "Ambient Occlusion"]
+        ]
+		[If, ( [IGet, "zplugin:Plugins Manager:a.USD Format"] == 0 )
+            ,//cmds
+            [RoutineCall, hide_plugin, "USD Format"]
+        ]
+		// third plugins
+		[If, ( [IGet, "zplugin:Plugins Manager:a.Live Boolean Utility"] == 0 )
+            ,//cmds
+            [RoutineCall, hide_plugin, "Live Boolean Utility"]
+        ]
+		[If, ( [IGet, "zplugin:Plugins Manager:a.zRepeatIt"] == 0 )
+            ,//cmds
+            [RoutineCall, hide_plugin, "zRepeatIt"]
+        ]
+		[If, ( [IGet, "zplugin:Plugins Manager:a.NanoTile Textures"] == 0 )
+            ,//cmds
+            [RoutineCall, hide_plugin, "NanoTiles Texture"]
+        ]
+		[If, ( [IGet, "zplugin:Plugins Manager:a.zStartup Utility"] == 0 )
+            ,//cmds
+            [RoutineCall, hide_plugin, "ZStartup Utility"]
+        ]
+		[If, ( [IGet, "zplugin:Plugins Manager:a.Clean Tool Utility"] == 0 )
+            ,//cmds
+            [RoutineCall, hide_plugin, "Clean Tool Utility"]
+        ]
+		[If, ( [IGet, "zplugin:Plugins Manager:a.Dynamesh Utility"] == 0 )
+            ,//cmds
+            [RoutineCall, hide_plugin, "DynaMesh Utility"]
+        ]
+		[If, ( [IGet, "zplugin:Plugins Manager:a.IMM Draw Size"] == 0 )
+            ,//cmds
+            [RoutineCall, hide_plugin, "IMM DrawSize"]
+        ]
+		[If, ( [IGet, "zplugin:Plugins Manager:a.IMM Extractor"] == 0 )
+            ,//cmds
+            [RoutineCall, hide_plugin, "IMM Extractor"]
+        ]
+		[If, ( [IGet, "zplugin:Plugins Manager:a.Keyshot Scale Sender"] == 0 )
+            ,//cmds
+            [RoutineCall, hide_plugin, "Keyshot Scale Sender"]
+        ]
+		[If, ( [IGet, "zplugin:Plugins Manager:a.Matcap Baker"] == 0 )
+            ,//cmds
+            [RoutineCall, hide_plugin, "Matcap Baker"]
+        ]
+		[If, ( [IGet, "zplugin:Plugins Manager:a.PanelLoop Presets"] == 0 )
+            ,//cmds
+            [RoutineCall, hide_plugin, "PanelLoop Presets"]
+        ]
+		[If, ( [IGet, "zplugin:Plugins Manager:a.Ring Utility"] == 0 )
+            ,//cmds
+            [RoutineCall, hide_plugin, "Ring Utility"]
+        ]
+		[If, ( [IGet, "zplugin:Plugins Manager:a.Turntabler"] == 0 )
+            ,//cmds
+            [RoutineCall, hide_plugin, "Turntabler"]
+        ]
+		[If, ( [IGet, "zplugin:Plugins Manager:a.Z Cnc"] == 0 )
+            ,//cmds
+            [RoutineCall, hide_plugin, "Z Cnc"]
+        ]
+		[If, ( [IGet, "zplugin:Plugins Manager:a.Intersection Masker"] == 0 )
+            ,//cmds
+            [RoutineCall, hide_plugin, "Intersection Masker"]
+        ]
+		[If, ( [IGet, "zplugin:Plugins Manager:a.Kitco Metal Quotes"] == 0 )
+            ,//cmds
+            [RoutineCall, hide_plugin, "Kitco Metal Quotes"]
+        ]
+		[If, ( [IGet, "zplugin:Plugins Manager:a.ZColor"] == 0 )
+            ,//cmds
+            [RoutineCall, hide_plugin, "ZColor"]
+        ]
+		[If, ( [IGet, "zplugin:Plugins Manager:a.Quick Scaler"] == 0 )
+            ,//cmds
+            [RoutineCall, hide_plugin, "Quick Scaler"]
+        ]
+		[If, ( [IGet, "zplugin:Plugins Manager:a.Layer Brush Depth"] == 0 )
+            ,//cmds
+            [RoutineCall, hide_plugin, "Layer Brush Depth"]
+        ]
+		[If, ( [IGet, "zplugin:Plugins Manager:a.ZBrush Compositor"] == 0 )
+            ,//cmds
+            [RoutineCall, hide_plugin, "ZBrush Compositor"]
+        ]
+		[If, ( [IGet, "zplugin:Plugins Manager:a.Precision Extract"] == 0 )
+            ,//cmds
+            [RoutineCall, hide_plugin, "Precision Extract"]
+        ]
+		[If, ( [IGet, "zplugin:Plugins Manager:a.Precision Move"] == 0 )
+            ,//cmds
+            [RoutineCall, hide_plugin, "Precision Move"]
+        ]
+]
+
+
+//Startup Routine must to run before the ui item definition
+[RoutineCall, Startup]
+
+
+//------------------------>
+// UI define starts Here :
+//------------------------<
+
+[ISubPalette, "Zplugin:Plugins Manager", 1]
+
+[IButton, "Zplugin:Plugins Manager:Plugins Manager Logo", "", 
+	,,1,,"plugins_manager_2021/plugins-manager-logo.psd",.250
+]
+
+[IButton, "Zplugin:Plugins Manager:Plugins Manager Options", "",,1,1,,,.125]
+
+[ISwitch, "Zplugin:Plugins Manager:a.Maximize plugins",
+	[MVarGet,nk_mpm_pluginStatus,0]//enable
+	,"Mazimize the plugin subtpalette. \nNote shift click on palette name will close all subpalette at once."
+	,// when pressed
+	[MVarSet,nk_mpm_pluginStatus,0,1]
+	[RoutineCall, UIStateToFile]
+	,// when unpressed
+	[MVarSet,nk_mpm_pluginStatus,0,0]
+	[RoutineCall, UIStateToFile]
+	,0//disable
+,1
+]
+[IButton, "Zplugin:Plugins Manager:Hide All", "Hide all plugins.", [RoutineCall, HideAll],0,1/2,,,.125]
+
+[IButton, "Zplugin:Plugins Manager:Show All", "Show all  plugins.", [RoutineCall, ShowAll],0,1/2,,,.125]
+
+[IButton, "Zplugin:Plugins Manager:Zbrush Default Plugins", "Built-in default plugins.",,1,1,,,.125]
+
+[ISwitch, "Zplugin:Plugins Manager:a.3d Print Hub",
+	[MVarGet,nk_mpm_pluginStatus,1]//enable
+	,"Show or Hide 3d Print Hub plugin."
+	,// when pressed
+	[RoutineCall, show_plugin, "3d Print Hub"]
+	[MVarSet,nk_mpm_pluginStatus,1,1]
+	[RoutineCall, UIStateToFile]
+	,// when unpressed
+	[RoutineCall, hide_plugin, "3d Print Hub"]
+	[MVarSet,nk_mpm_pluginStatus,1,0]
+	[RoutineCall, UIStateToFile]
+,0,1]
+
+[ISwitch, "Zplugin:Plugins Manager:a.Ambient Occlusion",
+	[MVarGet,nk_mpm_pluginStatus,2]//enable
+	,"Show or Hide Ambient Occlusion plugin."
+	,// when pressed
+	[RoutineCall, show_plugin, "Ambient Occlusion"]
+	[MVarSet,nk_mpm_pluginStatus,2,1]
+	[RoutineCall, UIStateToFile]
+	,// when unpressed
+	[RoutineCall, hide_plugin, "Ambient Occlusion"]
+	[MVarSet,nk_mpm_pluginStatus,2,0]
+	[RoutineCall, UIStateToFile]
+,0,1]
+
+[ISwitch, "Zplugin:Plugins Manager:a.Adjust Plugin",
+	[MVarGet,nk_mpm_pluginStatus,3]//enable
+	,"Show or Hide Adjust Plugin plugin."
+	,// when pressed
+	[RoutineCall, show_plugin, "Adjust Plugin"]
+	[MVarSet,nk_mpm_pluginStatus,3,1]
+	[RoutineCall, UIStateToFile]
+	,// when unpressed
+	[RoutineCall, hide_plugin, "Adjust Plugin"]
+	[MVarSet,nk_mpm_pluginStatus,3,0]
+	[RoutineCall, UIStateToFile]
+,0,1]
+
+[ISwitch, "Zplugin:Plugins Manager:a.Deactivation",
+	[MVarGet,nk_mpm_pluginStatus,4]//enable
+	,"Show or Hide Deactivation plugin."
+	,// when pressed
+	[RoutineCall, show_plugin, "Deactivation"]
+	[MVarSet,nk_mpm_pluginStatus,4,1]
+	[RoutineCall, UIStateToFile]
+	,// when unpressed
+	[RoutineCall, hide_plugin, "Deactivation"]
+	[MVarSet,nk_mpm_pluginStatus,4,0]
+	[RoutineCall, UIStateToFile]
+,0,1]
+
+[ISwitch, "Zplugin:Plugins Manager:a.Decimation Master",
+	[MVarGet,nk_mpm_pluginStatus,5]//enable
+	,"Show or Hide Decimation Master plugin."
+	,// when pressed
+	[RoutineCall, show_plugin, "Decimation Master"]
+	[MVarSet,nk_mpm_pluginStatus,5,1]
+	[RoutineCall, UIStateToFile]
+	,// when unpressed
+	[RoutineCall, hide_plugin, "Decimation Master"]
+	[MVarSet,nk_mpm_pluginStatus,5,0]
+	[RoutineCall, UIStateToFile]
+,0,1]
+
+
+[ISwitch, "Zplugin:Plugins Manager:a.FBX ExportImport",
+	[MVarGet,nk_mpm_pluginStatus,6]//enable
+	,"Show or Hide FBX ExportImport plugin."
+	,// when pressed
+	[RoutineCall, show_plugin, "FBX ExportImport"]
+	[MVarSet,nk_mpm_pluginStatus,6,1]
+	[RoutineCall, UIStateToFile]
+	,// when unpressed
+	[RoutineCall, hide_plugin, "FBX ExportImport"]
+	[MVarSet,nk_mpm_pluginStatus,6,0]
+	[RoutineCall, UIStateToFile]
+,0,1]
+
+[ISwitch, "Zplugin:Plugins Manager:a.Intersection Masker",
+	[MVarGet,nk_mpm_pluginStatus,7]//enable
+	,"Show or Hide Intersection Masker plugin."
+	,// when pressed
+	[RoutineCall, show_plugin, "Intersection Masker"]
+	[MVarSet,nk_mpm_pluginStatus,7,1]
+	[RoutineCall, UIStateToFile]
+	,// when unpressed
+	[RoutineCall, hide_plugin, "Intersection Masker"]
+	[MVarSet,nk_mpm_pluginStatus,7,0]
+	[RoutineCall, UIStateToFile]
+,0,1]
+
+[ISwitch, "Zplugin:Plugins Manager:a.Maya Blend Shapes",
+	[MVarGet,nk_mpm_pluginStatus,8]//enable
+	,"Show or Hide Maya Blend Shapes plugin."
+	,// when pressed
+	[RoutineCall, show_plugin, "Maya Blend Shapes"]
+	[MVarSet,nk_mpm_pluginStatus,8,1]
+	[RoutineCall, UIStateToFile]
+	,// when unpressed
+	[RoutineCall, hide_plugin, "Maya Blend Shapes"]
+	[MVarSet,nk_mpm_pluginStatus,8,0]
+	[RoutineCall, UIStateToFile]
+,0,1]
+
+[ISwitch, "Zplugin:Plugins Manager:a.Misc Utilities",
+	[MVarGet,nk_mpm_pluginStatus,9]//enable
+	,"Show or Hide Misc Utilities plugin."
+	,// when pressed
+	[RoutineCall, show_plugin, "Misc Utilities"]
+	[MVarSet,nk_mpm_pluginStatus,9,1]
+	[RoutineCall, UIStateToFile]
+	,// when unpressed
+	[RoutineCall, hide_plugin, "Misc Utilities"]
+	[MVarSet,nk_mpm_pluginStatus,9,0]
+	[RoutineCall, UIStateToFile]
+,0,1]
+
+[ISwitch, "Zplugin:Plugins Manager:a.Multi Map Exporter",
+	[MVarGet,nk_mpm_pluginStatus,10]//enable
+	,"Show or Hide Multi Map Exporter plugin."
+	,// when pressed
+	[RoutineCall, show_plugin, "Multi Map Exporter"]
+	[MVarSet,nk_mpm_pluginStatus,10,1]
+	[RoutineCall, UIStateToFile]
+	,// when unpressed
+	[RoutineCall, hide_plugin, "Multi Map Exporter"]
+	[MVarSet,nk_mpm_pluginStatus,10,0]
+	[RoutineCall, UIStateToFile]
+,0,1]
+
+[ISwitch, "Zplugin:Plugins Manager:a.PolygroupIt",
+	[MVarGet,nk_mpm_pluginStatus,11]//enable
+	,"Show or Hide PolygroupIt plugin."
+	,// when pressed
+	[RoutineCall, show_plugin, "PolygroupIt"]
+	[MVarSet,nk_mpm_pluginStatus,11,1]
+	[RoutineCall, UIStateToFile]
+	,// when unpressed
+	[RoutineCall, hide_plugin, "PolygroupIt"]
+	[MVarSet,nk_mpm_pluginStatus,11,0]
+	[RoutineCall, UIStateToFile]
+,0,1]
+
+[ISwitch, "Zplugin:Plugins Manager:a.Projection Master",
+	[MVarGet,nk_mpm_pluginStatus,12]//enable
+	,"Show or Hide Projection master plugin."
+	,// when pressed
+	[RoutineCall, show_plugin, "Projection Master"]
+	[MVarSet,nk_mpm_pluginStatus,12,1]
+	[RoutineCall, UIStateToFile]
+	,// when unpressed
+	[RoutineCall, hide_plugin, "Projection Master"]
+	[MVarSet,nk_mpm_pluginStatus,12,0]
+	[RoutineCall, UIStateToFile]
+,0,1]
+
+[ISwitch, "Zplugin:Plugins Manager:a.Quicksketch",
+	[MVarGet,nk_mpm_pluginStatus,13]//enable
+	,"Show or Hide QuickSketch plugin."
+	,// when pressed
+	[RoutineCall, show_plugin, "Quicksketch"]
+	[MVarSet,nk_mpm_pluginStatus,13,1]
+	[RoutineCall, UIStateToFile]
+	,// when unpressed
+	[RoutineCall, hide_plugin, "Quicksketch"]
+	[MVarSet,nk_mpm_pluginStatus,13,0]
+	[RoutineCall, UIStateToFile]
+,0,1]
+
+[ISwitch, "Zplugin:Plugins Manager:a.Scale Master",
+	[MVarGet,nk_mpm_pluginStatus,14]//enable
+	,"Show or Hide Scale Master plugin."
+	,// when pressed
+	[RoutineCall, show_plugin, "Scale Master"]
+	[MVarSet,nk_mpm_pluginStatus,14,1]
+	[RoutineCall, UIStateToFile]
+	,// when unpressed
+	[RoutineCall, hide_plugin, "Scale Master"]
+	[MVarSet,nk_mpm_pluginStatus,14,0]
+	[RoutineCall, UIStateToFile]
+,0,1]
+
+[ISwitch, "Zplugin:Plugins Manager:a.Subtool Master",
+	[MVarGet,nk_mpm_pluginStatus,15]//enable
+	,"Show or Hide Subtool Master plugin."
+	,// when pressed
+	[RoutineCall, show_plugin, "Subtool Master"]
+	[MVarSet,nk_mpm_pluginStatus,15,1]
+	[RoutineCall, UIStateToFile]
+	,// when unpressed
+	[RoutineCall, hide_plugin, "Subtool Master"]
+	[MVarSet,nk_mpm_pluginStatus,15,0]
+	[RoutineCall, UIStateToFile]
+,0,1]
+
+[ISwitch, "Zplugin:Plugins Manager:a.Text 3D & Vector Shapes",
+	[MVarGet,nk_mpm_pluginStatus,16]//enable
+	,"Show or Hide Text 3d plugin."
+	,// when pressed
+	[RoutineCall, show_plugin, "Text 3D"]
+	[MVarSet,nk_mpm_pluginStatus,16,1]
+	[RoutineCall, UIStateToFile]
+	,// when unpressed
+	[RoutineCall, hide_plugin, "Text 3D"]
+	[MVarSet,nk_mpm_pluginStatus,16,0]
+	[RoutineCall, UIStateToFile]
+,0,1]
+
+[ISwitch, "Zplugin:Plugins Manager:a.Transpose Master",
+	[MVarGet,nk_mpm_pluginStatus,17]//enable
+	,"Show or Hide Transpose Master plugin."
+	,// when pressed
+	[RoutineCall, show_plugin, "Transpose Master"]
+	[MVarSet,nk_mpm_pluginStatus,17,1]
+	[RoutineCall, UIStateToFile]
+	,// when unpressed
+	[RoutineCall, hide_plugin, "Transpose Master"]
+	[MVarSet,nk_mpm_pluginStatus,17,0]
+	[RoutineCall, UIStateToFile]
+,0,1]
+
+[ISwitch, "Zplugin:Plugins Manager:a.USD Format",
+	[MVarGet,nk_mpm_pluginStatus,18]//enable
+	,"Show or Hide USD Format plugin."
+	,// when pressed
+	[RoutineCall, show_plugin, "USD Format"]
+	[MVarSet,nk_mpm_pluginStatus,18,1]
+	[RoutineCall, UIStateToFile]
+	,// when unpressed
+	[RoutineCall, hide_plugin, "USD Format"]
+	[MVarSet,nk_mpm_pluginStatus,18,0]
+	[RoutineCall, UIStateToFile]
+,0,1]
+
+[ISwitch, "Zplugin:Plugins Manager:a.Uv Master",
+	[MVarGet,nk_mpm_pluginStatus,19]//enable
+	,"Show or Hide UvMaster plugin."
+	,// when pressed
+	[RoutineCall, show_plugin, "Uv Master"]
+	[MVarSet,nk_mpm_pluginStatus,19,1]
+	[RoutineCall, UIStateToFile]
+	,// when unpressed
+	[RoutineCall, hide_plugin, "Uv Master"]
+	[MVarSet,nk_mpm_pluginStatus,19,0]
+	[RoutineCall, UIStateToFile]
+,0,1]
+
+[ISwitch, "Zplugin:Plugins Manager:a.Zbrush To Photoshop",
+	[MVarGet,nk_mpm_pluginStatus,20]//enable
+	,"Show or Hide Zbrush To Photoshop plugin."
+	,// when pressed
+	[RoutineCall, show_plugin, "Zbrush To Photoshop"]
+	[MVarSet,nk_mpm_pluginStatus,20,1]
+	[RoutineCall, UIStateToFile]
+	,// when unpressed
+	[RoutineCall, hide_plugin, "Zbrush To Photoshop"]
+	[MVarSet,nk_mpm_pluginStatus,20,0]
+	[RoutineCall, UIStateToFile]
+,0,1]
+
+[ISwitch, "Zplugin:Plugins Manager:a.ZColor",
+	[MVarGet,nk_mpm_pluginStatus,21]//enable
+	,"Show or Hide ZColor by pixologic plugin."
+	,// when pressed
+	[RoutineCall, show_plugin, "ZColor"]
+	[MVarSet,nk_mpm_pluginStatus,21,1]
+	[RoutineCall, UIStateToFile]
+	,// when unpressed
+	[RoutineCall, hide_plugin, "ZColor"]
+	[MVarSet,nk_mpm_pluginStatus,21,0]
+	[RoutineCall, UIStateToFile]
+,0,1]
+
+[IButton, "Zplugin:Plugins Manager:Pixologic Plugins", "", 
+	,1//disable
+	,1,,,.125
+]
+
+
+[ISwitch, "Zplugin:Plugins Manager:a.Clean Tool Utility",
+	[MVarGet,nk_mpm_pluginStatus,22]//enable
+	,"Show or Hide Clean Tool mesh plugin."
+	,// when pressed
+	[RoutineCall, show_plugin, "Clean Tool Utility"]
+	[MVarSet,nk_mpm_pluginStatus,22,1]
+	[RoutineCall, UIStateToFile]
+	,// when unpressed
+	[RoutineCall, hide_plugin, "Clean Tool Utility"]
+	[MVarSet,nk_mpm_pluginStatus,22,0]
+	[RoutineCall, UIStateToFile]
+,0,1]
+
+[ISwitch, "Zplugin:Plugins Manager:a.Dynamesh Utility",
+	[MVarGet,nk_mpm_pluginStatus,23]//enable
+	,"Show or Hide Dynamesh Utility plugin."
+	,// when pressed
+	[RoutineCall, show_plugin, "DynaMesh Utility"]
+	[MVarSet,nk_mpm_pluginStatus,23,1]
+	[RoutineCall, UIStateToFile]
+	,// when unpressed
+	[RoutineCall, hide_plugin, "DynaMesh Utility"]
+	[MVarSet,nk_mpm_pluginStatus,23,0]
+	[RoutineCall, UIStateToFile]
+,0,1]
+
+[ISwitch, "Zplugin:Plugins Manager:a.IMM Draw Size",
+	[MVarGet,nk_mpm_pluginStatus,24]//enable
+	,"Show or Hide IMM Draw Size plugin."
+	,// when pressed
+	[RoutineCall, show_plugin, "IMM Draw Size"]
+	[MVarSet,nk_mpm_pluginStatus,24,1]
+	[RoutineCall, UIStateToFile]
+	,// when unpressed
+	[RoutineCall, hide_plugin, "IMM Draw Size"]
+	[MVarSet,nk_mpm_pluginStatus,24,0]
+	[RoutineCall, UIStateToFile]
+,0,1]
+
+[ISwitch, "Zplugin:Plugins Manager:a.IMM Extractor",
+	[MVarGet,nk_mpm_pluginStatus,25]//enable
+	,"Show or Hide IMM Extractor plugin."
+	,// when pressed
+	[RoutineCall, show_plugin, "IMM Extractor"]
+	[MVarSet,nk_mpm_pluginStatus,25,1]
+	[RoutineCall, UIStateToFile]
+	,// when unpressed
+	[RoutineCall, hide_plugin, "IMM Extractor"]
+	[MVarSet,nk_mpm_pluginStatus,25,0]
+	[RoutineCall, UIStateToFile]
+,0,1]
+
+[ISwitch, "Zplugin:Plugins Manager:a.Keyshot Scale Sender",
+	[MVarGet,nk_mpm_pluginStatus,26]//enable
+	,"Show or Hide Keyshot Scale Sender plugin."
+	,// when pressed
+	[RoutineCall, show_plugin, "Keyshot Scale Sender"]
+	[MVarSet,nk_mpm_pluginStatus,26,1]
+	[RoutineCall, UIStateToFile]
+	,// when unpressed
+	[RoutineCall, hide_plugin, "Keyshot Scale Sender"]
+	[MVarSet,nk_mpm_pluginStatus,26,0]
+	[RoutineCall, UIStateToFile]
+,0,1]
+
+[ISwitch, "Zplugin:Plugins Manager:a.Kitco Metal Quotes",
+	[MVarGet,nk_mpm_pluginStatus,27]//enable
+	,"Show or Hide Intersection Masker plugin."
+	,// when pressed
+	[RoutineCall, show_plugin, "Kitco Metal Quotes"]
+	[MVarSet,nk_mpm_pluginStatus,27,1]
+	[RoutineCall, UIStateToFile]
+	,// when unpressed
+	[RoutineCall, hide_plugin, "Kitco Metal Quotes"]
+	[MVarSet,nk_mpm_pluginStatus,27,0]
+	[RoutineCall, UIStateToFile]
+,0,1]
+
+[ISwitch, "Zplugin:Plugins Manager:a.Layer Brush Depth",
+	[MVarGet,nk_mpm_pluginStatus,28]//enable
+	,"Show or Hide Layer Brush Depth plugin."
+	,// when pressed
+	[RoutineCall, show_plugin, "Layer Brush Depth"]
+	[MVarSet,nk_mpm_pluginStatus,28,1]
+	[RoutineCall, UIStateToFile]
+	,// when unpressed
+	[RoutineCall, hide_plugin, "Layer Brush Depth"]
+	[MVarSet,nk_mpm_pluginStatus,28,0]
+	[RoutineCall, UIStateToFile]
+,0,1]
+
+[ISwitch, "Zplugin:Plugins Manager:a.Live Boolean Utility",
+	[MVarGet,nk_mpm_pluginStatus,29]//enable
+	,"Show or Hide Live Boolean Utility plugin."
+	,// when pressed
+	[RoutineCall, show_plugin, "Live Boolean Utility"]
+	[MVarSet,nk_mpm_pluginStatus,29,1]
+	[RoutineCall, UIStateToFile]
+	,// when unpressed
+	[RoutineCall, hide_plugin, "Live Boolean Utility"]
+	[MVarSet,nk_mpm_pluginStatus,29,0]
+	[RoutineCall, UIStateToFile]
+,0,1]
+
+[ISwitch, "Zplugin:Plugins Manager:a.Matcap Baker",
+	[MVarGet,nk_mpm_pluginStatus,30]//enable
+	,"Show or Hide Matcap Baker plugin."
+	,// when pressed
+	[RoutineCall, show_plugin, "Matcap Baker"]
+	[MVarSet,nk_mpm_pluginStatus,30,1]
+	[RoutineCall, UIStateToFile]
+	,// when unpressed
+	[RoutineCall, hide_plugin, "Matcap Baker"]
+	[MVarSet,nk_mpm_pluginStatus,30,0]
+	[RoutineCall, UIStateToFile]
+,0,1]
+
+[ISwitch, "Zplugin:Plugins Manager:a.NanoTile Textures",
+	[MVarGet,nk_mpm_pluginStatus,31]//enable
+	,"Show or Hide NanoTile Textures plugin."
+	,// when pressed
+	[RoutineCall, show_plugin, "NanoTile Textures"]
+	[MVarSet,nk_mpm_pluginStatus,31,1]
+	[RoutineCall, UIStateToFile]
+	,// when unpressed
+	[RoutineCall, hide_plugin, "NanoTile Textures"]
+	[MVarSet,nk_mpm_pluginStatus,31,0]
+	[RoutineCall, UIStateToFile]
+,0,1]
+
+[ISwitch, "Zplugin:Plugins Manager:a.PanelLoop Presets",
+	[MVarGet,nk_mpm_pluginStatus,32]//enable
+	,"Show or Hide PanelLoop Presets plugin."
+	,// when pressed
+	[RoutineCall, show_plugin, "PanelLoop Presets"]
+	[MVarSet,nk_mpm_pluginStatus,32,1]
+	[RoutineCall, UIStateToFile]
+	,// when unpressed
+	[RoutineCall, hide_plugin, "PanelLoop Presets"]
+	[MVarSet,nk_mpm_pluginStatus,32,0]
+	[RoutineCall, UIStateToFile]
+,0,1]
+
+[ISwitch, "Zplugin:Plugins Manager:a.Precision Extract",
+	[MVarGet,nk_mpm_pluginStatus,33]//enable
+	,"Show or Hide Precision Extract plugin."
+	,// when pressed
+	[RoutineCall, show_plugin, "Precision Extract"]
+	[MVarSet,nk_mpm_pluginStatus,33,1]
+	[RoutineCall, UIStateToFile]
+	,// when unpressed
+	[RoutineCall, hide_plugin, "Precision Extract"]
+	[MVarSet,nk_mpm_pluginStatus,33,0]
+	[RoutineCall, UIStateToFile]
+,0,1]
+
+[ISwitch, "Zplugin:Plugins Manager:a.Precision Move",
+	[MVarGet,nk_mpm_pluginStatus,34]//enable
+	,"Show or Hide Precision Move plugin."
+	,// when pressed
+	[RoutineCall, show_plugin, "Precision Move"]
+	[MVarSet,nk_mpm_pluginStatus,34,1]
+	[RoutineCall, UIStateToFile]
+	,// when unpressed
+	[RoutineCall, hide_plugin, "Precision Move"]
+	[MVarSet,nk_mpm_pluginStatus,34,0]
+	[RoutineCall, UIStateToFile]
+,0,1]
+
+
+[ISwitch, "Zplugin:Plugins Manager:a.Quick Scaler",
+	[MVarGet,nk_mpm_pluginStatus,35]//enable
+	,"Show or Hide Quick Scaler plugin."
+	,// when pressed
+	[RoutineCall, show_plugin, "Quick Scaler"]
+	[MVarSet,nk_mpm_pluginStatus,35,1]
+	[RoutineCall, UIStateToFile]
+	,// when unpressed
+	[RoutineCall, hide_plugin, "Quick Scaler"]
+	[MVarSet,nk_mpm_pluginStatus,35,0]
+	[RoutineCall, UIStateToFile]
+,0,1]
+
+[ISwitch, "Zplugin:Plugins Manager:a.Ring Utility",
+	[MVarGet,nk_mpm_pluginStatus,36]//enable
+	,"Show or Hide Ring Utility plugin."
+	,// when pressed
+	[RoutineCall, show_plugin, "Ring Utility"]
+	[MVarSet,nk_mpm_pluginStatus,36,1]
+	[RoutineCall, UIStateToFile]
+	,// when unpressed
+	[RoutineCall, hide_plugin, "Ring Utility"]
+	[MVarSet,nk_mpm_pluginStatus,36,0]
+	[RoutineCall, UIStateToFile]
+,0,1]
+
+[ISwitch, "Zplugin:Plugins Manager:a.Turntabler",
+	[MVarGet,nk_mpm_pluginStatus,37]//enable
+	,"Show or Hide Turntabler plugin."
+	,// when pressed
+	[RoutineCall, show_plugin, "Turntabler"]
+	[MVarSet,nk_mpm_pluginStatus,37,1]
+	[RoutineCall, UIStateToFile]
+	,// when unpressed
+	[RoutineCall, hide_plugin, "Turntabler"]
+	[MVarSet,nk_mpm_pluginStatus,37,0]
+	[RoutineCall, UIStateToFile]
+,0,1]
+
+[ISwitch, "Zplugin:Plugins Manager:a.ZBrush Compositor",
+	[MVarGet,nk_mpm_pluginStatus,38]//enable
+	,"Show or Hide ZBrush Compositor plugin."
+	,// when pressed
+	[RoutineCall, show_plugin, "ZBrush Compositor"]
+	[MVarSet,nk_mpm_pluginStatus,38,1]
+	[RoutineCall, UIStateToFile]
+	,// when unpressed
+	[RoutineCall, hide_plugin, "ZBrush Compositor"]
+	[MVarSet,nk_mpm_pluginStatus,38,0]
+	[RoutineCall, UIStateToFile]
+,0,1]
+
+[ISwitch, "Zplugin:Plugins Manager:a.Z Cnc",
+	[MVarGet,nk_mpm_pluginStatus,39]//enable
+	,"Show or Hide Z Cnc plugin."
+	,// when pressed
+	[RoutineCall, show_plugin, "Z Cnc"]
+	[MVarSet,nk_mpm_pluginStatus,39,1]
+	[RoutineCall, UIStateToFile]
+	,// when unpressed
+	[RoutineCall, hide_plugin, "Z Cnc"]
+	[MVarSet,nk_mpm_pluginStatus,39,0]
+	[RoutineCall, UIStateToFile]
+,0,1]
+
+[ISwitch, "Zplugin:Plugins Manager:a.zRepeatIt",
+	[MVarGet,nk_mpm_pluginStatus,40]//enable
+	,"Show or Hide zRepeatIt plugin."
+	,// when pressed
+	[RoutineCall, show_plugin, "ZRepeatIt"]
+	[MVarSet,nk_mpm_pluginStatus,40,1]
+	[RoutineCall, UIStateToFile]
+	,// when unpressed
+	[RoutineCall, hide_plugin, "ZRepeatIt"]
+	[MVarSet,nk_mpm_pluginStatus,40,0]
+	[RoutineCall, UIStateToFile]
+,0,1]
+
+[ISwitch, "Zplugin:Plugins Manager:a.zStartup Utility",
+	[MVarGet,nk_mpm_pluginStatus,41]//enable
+	,"Show or Hide zStartup Utility plugin."
+	,// when pressed
+	[RoutineCall, show_plugin, "ZStartup Utility"]
+	[MVarSet,nk_mpm_pluginStatus,41,1]
+	[RoutineCall, UIStateToFile]
+	,// when unpressed
+	[RoutineCall, hide_plugin, "ZStartup Utility"]
+	[MVarSet,nk_mpm_pluginStatus,41,0]
+	[RoutineCall, UIStateToFile]
+,0,1]
+
+
+[IButton, "Zplugin:Plugins Manager:Coded by Puppet-Master", "Click to open the web page.", 
+	[VarSet,filePath,[FileNameResolvePath,"plugins_manager_2021/home.url"]]
+	[FileExecute,[Var,dllPath],"LaunchAppWithFile", filePath]
+	,,.8,,"plugins_manager_2021/madeby.psd",.15
+]
+[IButton, "Zplugin:Plugins Manager:v2020.0", "Version Build.", 
+	,1//disable
+	,.2,,,.15
+]
+
+
+[RoutineCall, SetEnableSwitches]
+[RoutineCall, StartupPM]
+
