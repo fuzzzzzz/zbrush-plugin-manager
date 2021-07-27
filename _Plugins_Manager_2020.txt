@@ -112,17 +112,17 @@
 		[MVarSet,nk_mpm_uiSwitchesState,37,1] // ZrepeatIt
 		[MVarSet,nk_mpm_uiSwitchesState,38,1] // zstartupmaster
 
-/*
-		[MVarSet,nk_mpm_uiSwitchesState,40,1] // Lumiere
-		[MVarSet,nk_mpm_uiSwitchesState,41,1] // Matiere
-		[MVarSet,nk_mpm_uiSwitchesState,42,1] // zcycler pro
-		[MVarSet,nk_mpm_uiSwitchesState,43,1] // zsketcher
-		[MVarSet,nk_mpm_uiSwitchesState,44,1] // zbaker
-		[MVarSet,nk_mpm_uiSwitchesState,45,1] // zillustrator
-		[MVarSet,nk_mpm_uiSwitchesState,46,1] // minimal ui
-		[MVarSet,nk_mpm_uiSwitchesState,47,1] // pyZbrush
-		[MVarSet,nk_mpm_uiSwitchesState,48,1] // pm dev
-*/
+
+		// [MVarSet,nk_mpm_uiSwitchesState,40,1] // Lumiere
+		// [MVarSet,nk_mpm_uiSwitchesState,41,1] // Matiere
+		// [MVarSet,nk_mpm_uiSwitchesState,42,1] // zcycler pro
+		// [MVarSet,nk_mpm_uiSwitchesState,43,1] // zsketcher
+		// [MVarSet,nk_mpm_uiSwitchesState,44,1] // zbaker
+		// [MVarSet,nk_mpm_uiSwitchesState,45,1] // zillustrator
+		// [MVarSet,nk_mpm_uiSwitchesState,46,1] // minimal ui
+		// [MVarSet,nk_mpm_uiSwitchesState,47,1] // pyZbrush
+		// [MVarSet,nk_mpm_uiSwitchesState,48,1] // pm dev
+
 		
 	]
 
@@ -182,20 +182,15 @@
 				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.zStartup Master"],[VarSet,idx,38][LoopExit]]
 
 
-/*
-				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.Lumiere"],[VarSet,idx,40][LoopExit]]
-				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.Matiere"],[VarSet,idx,41][LoopExit]]
-				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.zCycler Pro"],[VarSet,idx,42][LoopExit]]
-				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.ZSketcher"],[VarSet,idx,43][LoopExit]]
-				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.zBaker"],[VarSet,idx,44][LoopExit]]
-				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.ZIllustrator"],[VarSet,idx,45][LoopExit]]
-				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.Minimal UI"],[VarSet,idx,46][LoopExit]]
-				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.PyZbrush"],[VarSet,idx,47][LoopExit]]
-				[If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.PuppetMaster Dev Tools"],[VarSet,idx,48][LoopExit]]
-*/				
-
-
-
+				// [If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.Lumiere"],[VarSet,idx,40][LoopExit]]
+				// [If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.Matiere"],[VarSet,idx,41][LoopExit]]
+				// [If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.zCycler Pro"],[VarSet,idx,42][LoopExit]]
+				// [If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.ZSketcher"],[VarSet,idx,43][LoopExit]]
+				// [If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.zBaker"],[VarSet,idx,44][LoopExit]]
+				// [If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.ZIllustrator"],[VarSet,idx,45][LoopExit]]
+				// [If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.Minimal UI"],[VarSet,idx,46][LoopExit]]
+				// [If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.PyZbrush"],[VarSet,idx,47][LoopExit]]
+				// [If,StartupWinID==[IGetID,"Zplugin:Plugins Manager:a.PuppetMaster Dev Tools"],[VarSet,idx,48][LoopExit]]
 
 			]//end loop
 
@@ -262,25 +257,25 @@
 	[IEnable, "Zplugin:Plugins Manager:a.Quick Scaler"]
 	[IEnable, "Zplugin:Plugins Manager:a.ZBrush Compositor"]
 
-/*
-	[IEnable, "Zplugin:Plugins Manager:a.Lumiere"]
-	[IEnable, "Zplugin:Plugins Manager:a.Matiere"]
-	[IEnable, "Zplugin:Plugins Manager:a.zCycler Pro"]
-	[IEnable, "Zplugin:Plugins Manager:a.ZSketcher"]
-	[IEnable, "Zplugin:Plugins Manager:a.zBaker"]
-	[IEnable, "Zplugin:Plugins Manager:a.ZIllustrator"]
-	[IEnable, "Zplugin:Plugins Manager:a.Minimal UI"]
-	[IEnable, "Zplugin:Plugins Manager:a.PyZbrush"]
-	[IEnable, "Zplugin:Plugins Manager:a.PuppetMaster Dev Tools"]
-	[IEnable, "Zplugin:Plugins Manager:a.Plugin Template"]
-*/
+
+	// [IEnable, "Zplugin:Plugins Manager:a.Lumiere"]
+	// [IEnable, "Zplugin:Plugins Manager:a.Matiere"]
+	// [IEnable, "Zplugin:Plugins Manager:a.zCycler Pro"]
+	// [IEnable, "Zplugin:Plugins Manager:a.ZSketcher"]
+	// [IEnable, "Zplugin:Plugins Manager:a.zBaker"]
+	// [IEnable, "Zplugin:Plugins Manager:a.ZIllustrator"]
+	// [IEnable, "Zplugin:Plugins Manager:a.Minimal UI"]
+	// [IEnable, "Zplugin:Plugins Manager:a.PyZbrush"]
+	// [IEnable, "Zplugin:Plugins Manager:a.PuppetMaster Dev Tools"]
+	// [IEnable, "Zplugin:Plugins Manager:a.Plugin Template"]
+
 
 ]
 
 [RoutineCall, CheckSystem]
 
 // global Variables :
-[Varset, pluginId,0]
+[VarSet, pluginId,0]
 
 //Refactor Idea :
 
@@ -310,7 +305,7 @@
 		[IShow, plugin_path]
 		[If,[IGet, "Zplugin:Plugins Manager:a.Maximize Plugins"]
 			,//cmds
-			[IKeypress, SHIFT,[IClick, plugin_path]]
+			[IKeyPress, SHIFT,[IClick, plugin_path]]
 		]
 		,//else
 		//is unloaded ?
@@ -343,18 +338,18 @@
 	[IUnPress, "Zplugin:Plugins Manager:a.Decimation Master"]
 	[IUnPress, "Zplugin:Plugins Manager:a.PolygroupIt"]
 	[IUnPress, "Zplugin:Plugins Manager:a.ZColor"]
-/*
-	[IUnPress, "Zplugin:Plugins Manager:a.Lumiere"]
-	[IUnPress, "Zplugin:Plugins Manager:a.Matiere"]
-	[IUnPress, "Zplugin:Plugins Manager:a.zCycler Pro"]
-	[IUnPress, "Zplugin:Plugins Manager:a.ZSketcher"]
-	[IUnPress, "Zplugin:Plugins Manager:a.zBaker"]
-	[IUnPress, "Zplugin:Plugins Manager:a.ZIllustrator"]
-	[IUnPress, "Zplugin:Plugins Manager:a.Minimal UI"]
-	[IUnPress, "Zplugin:Plugins Manager:a.PyZbrush"]
-	[IUnPress, "Zplugin:Plugins Manager:a.PuppetMaster Dev Tools"]
-	[IUnPress, "Zplugin:Plugins Manager:a.Plugin Template"]
-*/	
+
+	// [IUnPress, "Zplugin:Plugins Manager:a.Lumiere"]
+	// [IUnPress, "Zplugin:Plugins Manager:a.Matiere"]
+	// [IUnPress, "Zplugin:Plugins Manager:a.zCycler Pro"]
+	// [IUnPress, "Zplugin:Plugins Manager:a.ZSketcher"]
+	// [IUnPress, "Zplugin:Plugins Manager:a.zBaker"]
+	// [IUnPress, "Zplugin:Plugins Manager:a.ZIllustrator"]
+	// [IUnPress, "Zplugin:Plugins Manager:a.Minimal UI"]
+	// [IUnPress, "Zplugin:Plugins Manager:a.PyZbrush"]
+	// [IUnPress, "Zplugin:Plugins Manager:a.PuppetMaster Dev Tools"]
+	// [IUnPress, "Zplugin:Plugins Manager:a.Plugin Template"]
+	
 
 	[IUnPress, "Zplugin:Plugins Manager:a.zRepeatIt"]
 	[IUnPress, "Zplugin:Plugins Manager:a.NanoTile Textures"]
@@ -397,19 +392,19 @@
 	[IPress, "Zplugin:Plugins Manager:a.Decimation Master"]
 	[IPress, "Zplugin:Plugins Manager:a.PolygroupIt"]
 	[IPress, "Zplugin:Plugins Manager:a.ZColor"]
-/*
 
-	[IPress, "Zplugin:Plugins Manager:a.Lumiere"]
-	[IPress, "Zplugin:Plugins Manager:a.Matiere"]
-	[IPress, "Zplugin:Plugins Manager:a.zCycler Pro"]
-	[IPress, "Zplugin:Plugins Manager:a.ZSketcher"]
-	[IPress, "Zplugin:Plugins Manager:a.zBaker"]
-	[IPress, "Zplugin:Plugins Manager:a.ZIllustrator"]
-	[IPress, "Zplugin:Plugins Manager:a.Minimal UI"]
-	[IPress, "Zplugin:Plugins Manager:a.PyZbrush"]
-	[IPress, "Zplugin:Plugins Manager:a.PuppetMaster Dev Tools"]
-	[IPress, "Zplugin:Plugins Manager:a.Plugin Template"]
-*/
+
+	// [IPress, "Zplugin:Plugins Manager:a.Lumiere"]
+	// [IPress, "Zplugin:Plugins Manager:a.Matiere"]
+	// [IPress, "Zplugin:Plugins Manager:a.zCycler Pro"]
+	// [IPress, "Zplugin:Plugins Manager:a.ZSketcher"]
+	// [IPress, "Zplugin:Plugins Manager:a.zBaker"]
+	// [IPress, "Zplugin:Plugins Manager:a.ZIllustrator"]
+	// [IPress, "Zplugin:Plugins Manager:a.Minimal UI"]
+	// [IPress, "Zplugin:Plugins Manager:a.PyZbrush"]
+	// [IPress, "Zplugin:Plugins Manager:a.PuppetMaster Dev Tools"]
+	// [IPress, "Zplugin:Plugins Manager:a.Plugin Template"]
+
 	
 	[IPress, "Zplugin:Plugins Manager:a.zRepeatIt"]
 	[IPress, "Zplugin:Plugins Manager:a.NanoTile Textures"]
@@ -435,120 +430,27 @@
 
 [RoutineDef, CheckInstalledPlugins,
 	
-	//ZRepeatIt plugins
-	[If, [FileExists, "ZRepeatIt_2020.zsc"]
-		,//
-		//do nothing
-		,//else
-		[IHide, "zplugin:plugins manager:a.ZRepeatIt"]
-		//[IHide, "zplugin:plugins manager:Reload zRepeatIt"]
-	]
-    	[If, [FileExists, "NanoTileTextures_2020.zsc"]
-		,//
-		//do nothing
-		,//else
-		[IHide, "zplugin:plugins manager:a.NanoTile Textures"]
-		//[IHide, "zplugin:plugins manager:Reload NanoTile Textures"]
-	]
-	[If, [FileExists, "ZStartupMaster_2020.zsc"]
-		,//
-		//do nothing
-		,//else
-		[IHide, "zplugin:plugins manager:a.zStartup Master"]
-		//[IHide, "zplugin:plugins manager:Reload zStartup Master"]
-	]
-	[If, [FileExists, "CleanToolMaster_2020.zsc"]
-		,//
-		//do nothing
-		,//else
-		[IHide, "zplugin:plugins manager:a.Clean Tool Master"]
-		//[IHide, "zplugin:plugins manager:Reload Clean Tool Master"]
-	]
-	[If, [FileExists, "LiveBooleanMaster_2020.zsc"]
-		,//
-		//do nothing
-		,//else
-		[IHide, "zplugin:plugins manager:a.Live Boolean Master"]
-		//[IHide, "zplugin:plugins manager:Reload Live Boolean Master"]
-	]
-	[If, [FileExists, "DynaMeshMaster_2020.zsc"]
-		,//
-		//do nothing
-		,//else
-		[IHide, "zplugin:plugins manager:a.DynaMesh Master"]
-		//[IHide, "zplugin:plugins manager:Reload DynaMesh Master"]
-	]
-	[If, [FileExists, "IMMDrawSize_2020.zsc"]
-		,//
-		//do nothing
-		,//else
-		[IHide, "zplugin:plugins manager:a.IMM Draw Size"]
-		//[IHide, "zplugin:plugins manager:Reload IMM Draw Size"]
-	]
-	[If, [FileExists, "IMMExtractor_2020.zsc"]
-		,//
-		//do nothing
-		,//else
-		[IHide, "zplugin:plugins manager:a.IMM Extractor"]
-		//[IHide, "zplugin:plugins manager:Reload IMM Extractor"]
-	]
-	[If, [FileExists, "KeyshotScaleSender_2020.zsc"]
-		,//
-		//do nothing
-		,//else
-		[IHide, "zplugin:plugins manager:a.Keyshot Scale Sender"]
-		//[IHide, "zplugin:plugins manager:Reload Keyshot Scale Sender"]
-	]
-	[If, [FileExists, "MatCapBaker_2020.zsc"]
-		,//
-		//do nothing
-		,//else
-		[IHide, "zplugin:plugins manager:a.MatCap Baker"]
-		//[IHide, "zplugin:plugins manager:Reload MatCap Baker"]
-	]
-	[If, [FileExists, "PanelLoopPresets_2020.zsc"]
-		,//
-		//do nothing
-		,//else
-		[IHide, "zplugin:plugins manager:a.PanelLoop Presets"]
-		//[IHide, "zplugin:plugins manager:Reload PanelLoop Presets"]
-	]
-	[If, [FileExists, "RingMaster_2020.zsc"]
-		,//
-		//do nothing
-		,//else
-		[IHide, "zplugin:plugins manager:a.Ring Master"]
-		//[IHide, "zplugin:plugins manager:Reload Ring Master"]
-	]
-	[If, [FileExists, "Turntabler_2020.zsc"]
-		,//
-		//do nothing
-		,//else
-		[IHide, "zplugin:plugins manager:a.Turntabler"]
-		//[IHide, "zplugin:plugins manager:Reload Turntabler"]
-	]
-	[If, [FileExists, "ZCnc_2020.zsc"]
-		,//
-		//do nothing
-		,//else
-		[IHide, "zplugin:plugins manager:a.Z Cnc"]
-		//[IHide, "zplugin:plugins manager:Reload Z Cnc"]
-	]
-	[If, [FileExists, "IntersectionMasker_2020.zsc"]
-		,//
-		//do nothing
-		,//else
-		[IHide, "zplugin:plugins manager:a.Intersection Masker"]
-		//[IHide, "zplugin:plugins manager:Reload Intersection Masker"]
-	]
-	[If, [FileExists, "KitcoMetalQuotes_2020.zsc"]
-		,//
-		//do nothing
-		,//else
-		[IHide, "zplugin:plugins manager:a.Kitco Metal Quotes"]
-		//[IHide, "zplugin:plugins manager:Reload Kitco Metal Quotes"]
-	]
+	[If, [FileExists, "ZRepeatIt_2020.zsc"],,[IHide, "zplugin:plugins manager:a.ZRepeatIt"]]
+    [If, [FileExists, "NanoTileTextures_2020.zsc"],,[IHide, "zplugin:plugins manager:a.NanoTile Textures"]]
+	[If, [FileExists, "ZStartupMaster_2020.zsc"],,[IHide, "zplugin:plugins manager:a.zStartup Master"]]
+	[If, [FileExists, "CleanToolMaster_2020.zsc"],,[IHide, "zplugin:plugins manager:a.Clean Tool Master"]]
+	[If, [FileExists, "LiveBooleanMaster_2020.zsc"],,[IHide, "zplugin:plugins manager:a.Live Boolean Master"]]
+	[If, [FileExists, "DynaMeshMaster_2020.zsc"],,[IHide, "zplugin:plugins manager:a.DynaMesh Master"]]
+	[If, [FileExists, "IMMDrawSize_2020.zsc"],,[IHide, "zplugin:plugins manager:a.IMM Draw Size"]]
+	[If, [FileExists, "IMMExtractor_2020.zsc"],,[IHide, "zplugin:plugins manager:a.IMM Extractor"]]
+	[If, [FileExists, "KeyshotScaleSender_2020.zsc"],,[IHide, "zplugin:plugins manager:a.Keyshot Scale Sender"]]
+	[If, [FileExists, "MatCapBaker_2020.zsc"],,[IHide, "zplugin:plugins manager:a.MatCap Baker"]]
+	[If, [FileExists, "PanelLoopPresets_2020.zsc"],,[IHide, "zplugin:plugins manager:a.PanelLoop Presets"]]
+	[If, [FileExists, "RingMaster_2020.zsc"],,[IHide, "zplugin:plugins manager:a.Ring Master"]]
+	[If, [FileExists, "Turntabler_2020.zsc"],,[IHide, "zplugin:plugins manager:a.Turntabler"]]
+	[If, [FileExists, "ZCnc_2020.zsc"],,[IHide, "zplugin:plugins manager:a.Z Cnc"]]
+	[If, [FileExists, "IntersectionMasker_2020.zsc"],,[IHide, "zplugin:plugins manager:a.Intersection Masker"]]
+	[If, [FileExists, "KitcoMetalQuotes_2020.zsc"],,[IHide, "zplugin:plugins manager:a.Kitco Metal Quotes"]]
+	[If, [FileExists, "LayerBrushDepth_2020.zsc"],,[IHide, "zplugin:plugins manager:a.Layer Brush Depth"]]
+	[If, [FileExists, "QuickScaler_2020.zsc"],,[IHide, "zplugin:plugins manager:a.Quick Scaler"]]
+	[If, [FileExists, "ZBrushCompositor_2020.zsc"],,[IHide, "zplugin:plugins manager:a.ZBrush Compositor"]]
 ]
+
 [RoutineDef, StartupPM,
 
 		[RoutineCall, CheckInstalledPlugins]//put it there instead ?
