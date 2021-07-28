@@ -25,7 +25,7 @@
 		[MVarSet,nk_mpm_pluginStatus,11,1] // PolygroupIt
 
 		[MVarSet,nk_mpm_pluginStatus,12,1] // projection master
-        [MVarSet,nk_mpm_pluginStatus,13,1] // quicksketch
+        	[MVarSet,nk_mpm_pluginStatus,13,1] // quicksketch
 		[MVarSet,nk_mpm_pluginStatus,14,1] // Scale Master
 		[MVarSet,nk_mpm_pluginStatus,15,1] // Subtool Master
 		[MVarSet,nk_mpm_pluginStatus,16,1] // text3d
